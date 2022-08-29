@@ -1,7 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Star from './starLib/star';
+import StarRating from './starLib/StarRating';
 
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <Star/>
+        <StarRating/>
       </div>
       </starContext.Provider>
     );  
