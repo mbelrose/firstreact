@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+// Takes a state and dynamically generates row of clickable rating stars
 
+
+import React, {useEffect, useState} from 'react';
 import { FaStar } from 'react-icons/fa';
 
-const StarRating = () => {
+const StarRating = ({rating, setRating}) => {
     const starLimit = 5;
-    const [rating, setRating] = useState(3);
     const [starSet, setStarSet] = useState([]);
     useEffect (()=> {
         let iSet = [];
