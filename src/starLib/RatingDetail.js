@@ -1,5 +1,5 @@
 // given a userid, checks validity and displays rating details
-import React from 'react';
+import React, { useState } from 'react';
 import StarRating from './StarRating';
 
 const RatingDetail = () => {
