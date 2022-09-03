@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import RatingDetail from './starLib/RatingDetail';
+import ReviewDetail from './starLib/ReviewDetail';
 
 const App = () => {
   const starContext = createContext();
@@ -23,7 +23,7 @@ const App = () => {
           </div>
 
           <Routes>
-            <Route path="/detail" element={<RatingDetail />}/>
+            <Route path="/detail" element={<ReviewDetail />}/>
           </Routes>
         </div>
 

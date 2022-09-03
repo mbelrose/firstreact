@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import StarRating from './StarRating';
 
-const RatingDetail = () => {
+const ReviewDetail = () => {
 
 
     const [rating, setRating] = useState(2);
@@ -14,4 +14,4 @@ const RatingDetail = () => {
     );
 }
 
-export default RatingDetail;
+export default ReviewDetail;
