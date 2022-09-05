@@ -7,15 +7,15 @@ const ConnectionString = require('./model/ConnectionString');
 
 const logError = 
     (error)=> {
-        console.log(`Database connection failed: ${error.message}`);
+        console.log(`Database error: ${error.message}`);
         process.exit();
     }
 ;
 
 
-const connection = mongoose.connect(ConnectionString);
-connection.catch(logError);
-connection.then((connection) => {
+const connection = mongoose.connect(ConnectionString)
+    .catch(logError).then(
+    (connection) => {
 
     const reviews = new connection.model('reviews', ReviewSchema);
     console.log('Success.');
