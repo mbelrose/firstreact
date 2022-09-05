@@ -1,3 +1,7 @@
+const util = require('util');
+global.TextEncoder = util.TextEncoder;
+global.TextDecoder = util.TextDecoder;
+
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
 const ReviewSchema = require('../model/ReviewSchema');
@@ -16,11 +20,10 @@ const sampleReviews = [
 ];
 
 const PopulateTest = () => {
-    const connection = mongoose.connect(ConnectionString);
-    connection.catch(logError);
-    connection.then(
-
+    const connection = mongoose.connect(ConnectionString)
+        .catch(logError).then(
         (connection) => {
+            
             const reviews = new connection.model('reviews', ReviewSchema);
             const deletion = reviews.deleteMany({})
                 .catch(logError).then(
