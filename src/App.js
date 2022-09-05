@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import ReviewDetail from './starLib/ReviewDetail';
@@ -8,6 +8,7 @@ const App = () => {
   const starContext = createContext();
 
     return (
+      <Router>
       <starContext.Provider value="">
 
         <div className="App">
@@ -28,6 +29,7 @@ const App = () => {
         </div>
 
       </starContext.Provider>
+      </Router>
     );
 }
 
