@@ -1,7 +1,7 @@
 // hopefully reusable schema object, might need separate instance client side
 const mongoose = require('mongoose');
 
-const reviewSchema =
+const ReviewSchema =
     new mongoose.Schema({
         name: String,
         rating: {
@@ -11,4 +11,4 @@ const reviewSchema =
         }
     });
 
-module.exports = reviewSchema
+module.exports = ReviewSchema

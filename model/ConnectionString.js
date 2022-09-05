@@ -4,8 +4,8 @@ const password = process.env.DATABASE_PASSWORD;
 const host = process.env.DATABASE_HOST || 'localhost';
 const port = process.env.DATABASE_PORT || '27017';
 
-const connectionString = 
+const ConnectionString = 
     `mongodb://${username}:${password}@${host}:${port}/firstreact?authSource=admin`
 ;
 
-module.exports = connectionString;
+module.exports = ConnectionString;
