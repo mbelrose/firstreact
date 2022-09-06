@@ -5,20 +5,18 @@ const mongoose = require('mongoose');
 const ReviewSchema = require('./model/ReviewSchema');
 const ConnectionString = require('./model/ConnectionString');
 
-const logError = 
-    (error)=> {
-        console.log(`Database error: ${error.message}`);
-        process.exit();
-    }
-;
+const logError = (error) => {
+    console.log(`Database Error: ${error.message}`);
+    process.exit();
+};
 
 
 const connection = mongoose.connect(ConnectionString)
-    .catch(logError).then(
+    .then(
     (connection) => {
 
-    const reviews = new connection.model('reviews', ReviewSchema);
+    const reviews = mongoose.model('reviews', ReviewSchema);
     console.log('Success.');
     process.exit();
     
-} );
+}).catch(logError);

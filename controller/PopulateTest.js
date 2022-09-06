@@ -6,11 +6,9 @@ const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
 const ReviewSchema = require('../model/ReviewSchema');
 
-const logError = 
-    (error)=> {
+const logError = (error)=> {
         console.log(`Database Error: ${error.message}`);
-    }
-;
+};
 
 const sampleReviews = [
     {
@@ -19,29 +17,16 @@ const sampleReviews = [
     }
 ];
 
-const PopulateTest = () => {
-    const connection = mongoose.connect(ConnectionString)
-        .catch(logError).then(
-        (connection) => {
-            
-            const reviews = new connection.model('reviews', ReviewSchema);
-            const deletion = reviews.deleteMany({})
-                .catch(logError).then(
-                (deletion) => {
+const PopulateTest = async () => {
 
-                    const insertion = reviews.insertMany(sampleReviews)
-                        .catch(logError).then(
-                        (insertion) => {
+    const connection = await mongoose.connect(ConnectionString)
 
-                            return (insertion);
+    const reviews = mongoose.model('reviews', ReviewSchema);
+    const deletion = await reviews.deleteMany({})
 
-                        }
-                    );
+    const prom = reviews.insertMany(sampleReviews);
+    return prom;
 
-                }
-            );
-        }
-    );
 }
 
 module.exports = PopulateTest;
