@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import ReviewDetail from './ReviewDetail';
 import PopulateTest from '../../controller/PopulateTest';
-const errorLog = require('../../TestErrorLog');
+const logError = require('../../TestErrorLog');
 
 describe ('main test',()=>{
     
@@ -13,7 +13,7 @@ describe ('main test',()=>{
         .then( prom => {
             render(<ReviewDetail />);
             return prom;
-        }).catch(errorLog);
+        }).catch(logError);
         
     });
 
