@@ -10,25 +10,26 @@ const logError = (error)=> {
     console.log(`Database Error: ${error.message}`);
 };
 
-const populate = PopulateTest().then( x => {
-
-     return mongoose.connect(ConnectionString);
-
-}).then( x => {
-
-     return reviews.find({name: "sample"},{name: 1, rating: 1});
-
-}).then( reviewSample => {
-
-    test('reviews insert', () => {
-        expect(reviewSample[0]["rating"]).toEqual(999);
-    });
-    console.log(`reviews insert manually: ${reviewSample[0]["rating"] === 3}`);
-    return reviewSample;
-
-})
-.catch(logError);
-
 test('executed successfully', () => {
     expect(true).toEqual(true);
+});
+
+test('reviews populate', () => {
+    const populate = PopulateTest().then( x => {
+    
+         return mongoose.connect(ConnectionString);
+    
+    }).then( x => {
+    
+         return reviews.find({name: "sample"},{name: 1, rating: 1});
+    
+    }).then( reviewSample => {
+    
+        expect(reviewSample.length).toEqual(1);
+        expect(reviewSample[0]["rating"]).toEqual(3);
+        return reviewSample;
+    
+    })
+    .catch(logError);
+    
 });
