@@ -3,7 +3,8 @@ global.TextEncoder = util.TextEncoder;
 global.TextDecoder = util.TextDecoder;
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
-const reviews = require('../model/ReviewModel');
+const ReviewModel = require('../model/ReviewModel');
+const reviews = ReviewModel.model;
 const PopulateTest = require('./PopulateTest');
 const logError = require('../TestErrorLog');
 
