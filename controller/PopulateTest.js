@@ -5,6 +5,7 @@ global.TextDecoder = util.TextDecoder;
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
 const ReviewSchema = require('../model/ReviewSchema');
+const { connect } = require('http2');
 
 const logError = (error)=> {
         console.log(`Database Error: ${error.message}`);
@@ -17,15 +18,19 @@ const sampleReviews = [
     }
 ];
 
-const PopulateTest = async () => {
-
-    const connection = await mongoose.connect(ConnectionString)
+const PopulateTest = () => {
 
     const reviews = mongoose.model('reviews', ReviewSchema);
-    const deletion = await reviews.deleteMany({})
+    return mongoose.connect(ConnectionString)
+    .then( x => {
 
-    const prom = reviews.insertMany(sampleReviews);
-    return prom;
+        return reviews.deleteMany({});
+
+    }).then( x => {
+
+         return reviews.insertMany(sampleReviews);
+
+    }).catch(logError);
 
 }
 
