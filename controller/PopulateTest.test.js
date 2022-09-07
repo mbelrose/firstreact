@@ -7,12 +7,11 @@ const ReviewSchema = require('../model/ReviewSchema');
 const PopulateTest = require('./PopulateTest');
 const reviews = mongoose.model('reviews', ReviewSchema);
 
-// test('executed successfully', () => { expect(true).toEqual(true)});
 const logError = (error)=> {
     console.log(`Database Error: ${error.message}`);
 };
 
-const populate = PopulateTest().then(x => {
+const populate = PopulateTest().then( x => {
 
      return mongoose.connect(ConnectionString);
 
