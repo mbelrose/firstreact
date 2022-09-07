@@ -1,8 +1,7 @@
-//this script would normally be used to migrate schemas but mongoose doesn't do that?
-//probably move some of this into shared code
+//this script would normally be used to migrate schemas but mongoose doesn't do that.
 
 const mongoose = require('mongoose');
-const ReviewSchema = require('./model/ReviewSchema');
+const reviews = require('./model/ReviewSchema');
 const ConnectionString = require('./model/ConnectionString');
 
 const logError = (error) => {
@@ -12,10 +11,8 @@ const logError = (error) => {
 
 
 const connection = mongoose.connect(ConnectionString)
-    .then(
-    (connection) => {
+.then( x => {
 
-    const reviews = mongoose.model('reviews', ReviewSchema);
     console.log('Success.');
     process.exit();
     

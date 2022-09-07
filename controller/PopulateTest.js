@@ -4,7 +4,7 @@ global.TextDecoder = util.TextDecoder;
 
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
-const ReviewSchema = require('../model/ReviewSchema');
+const reviews = require('../model/ReviewModel');
 const { connect } = require('http2');
 
 const logError = (error)=> {
@@ -20,7 +20,6 @@ const sampleReviews = [
 
 const PopulateTest = () => {
 
-    const reviews = mongoose.model('reviews', ReviewSchema);
     return mongoose.connect(ConnectionString)
     .then( x => {
 

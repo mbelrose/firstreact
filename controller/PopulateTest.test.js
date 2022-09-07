@@ -3,9 +3,8 @@ global.TextEncoder = util.TextEncoder;
 global.TextDecoder = util.TextDecoder;
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
-const ReviewSchema = require('../model/ReviewSchema');
+const reviews = require('../model/ReviewModel');
 const PopulateTest = require('./PopulateTest');
-const reviews = mongoose.model('reviews', ReviewSchema);
 
 const logError = (error)=> {
     console.log(`Database Error: ${error.message}`);
