@@ -5,11 +5,7 @@ global.TextDecoder = util.TextDecoder;
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
 const reviews = require('../model/ReviewModel');
-const { connect } = require('http2');
-
-const logError = (error)=> {
-        console.log(`Database Error: ${error.message}`);
-};
+const logError = require('../TestErrorLog');
 
 const sampleReviews = [
     {

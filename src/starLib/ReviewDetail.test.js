@@ -1,19 +1,19 @@
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ReviewDetail from './ReviewDetail';
 import PopulateTest from '../../controller/PopulateTest';
+const errorLog = require('../../TestErrorLog');
 
 describe ('main test',()=>{
     
-    beforeAll( () => {
-        const populate = PopulateTest();
-    });
-    
     test('renders a rating', () => {
         
-        render(<ReviewDetail />);
+        const populate = PopulateTest()
+        .then( prom => {
+            render(<ReviewDetail />);
+            return prom;
+        }).catch(errorLog);
         
     });
 

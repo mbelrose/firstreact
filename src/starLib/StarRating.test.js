@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { fireEvent, render } from '@testing-library/react';
-// import { renderHook } from '@testing-library/react-hooks';
 import StarRating from './StarRating';
+const logError = require('../../TestErrorLog');
 
 test('renders a star', () => { 
 

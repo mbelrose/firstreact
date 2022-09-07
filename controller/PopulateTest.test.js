@@ -5,10 +5,7 @@ const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
 const reviews = require('../model/ReviewModel');
 const PopulateTest = require('./PopulateTest');
-
-const logError = (error)=> {
-    console.log(`Database Error: ${error.message}`);
-};
+const logError = require('../TestErrorLog');
 
 test('executed successfully', () => {
     expect(true).toEqual(true);
