@@ -14,14 +14,14 @@ const ReviewSchema = new mongoose.Schema({
 // const util = require('util');
 // global.TextEncoder = util.TextEncoder;
 // global.TextDecoder = util.TextDecoder;
-const ReviewModel = mongoose.model('reviews', ReviewSchema);
+const model = mongoose.model('reviews', ReviewSchema);
 
 const getOne = (id) => {
 
     const getOne = mongoose.connect(ConnectionString)
     .then( prom => {
 
-        return ReviewModel.findById(id);
+        return model.findById(id);
 
     });
     return getOne;
@@ -29,7 +29,6 @@ const getOne = (id) => {
 }
 
 module.exports = {
-    model: ReviewModel, 
-    getOne,
-    default: ReviewModel //deprecate this
+    model, 
+    getOne
 };
