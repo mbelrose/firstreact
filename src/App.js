@@ -20,7 +20,7 @@ const App = () => {
 
           <div>
             MENU:
-            <Link to="/detail">DETAIL</Link>
+            <Link to="/detail/">DETAIL</Link>
           </div>
 
           <Routes>
