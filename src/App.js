@@ -5,11 +5,11 @@ import './App.css';
 import ReviewDetail from './reviewLib/ReviewDetail';
 
 const App = () => {
-  const starContext = createContext();
+  const reviewContext = createContext();
 
     return (
       <Router>
-      <starContext.Provider value="">
+      <reviewContext.Provider value="">
 
         <div className="App">
 
@@ -20,15 +20,15 @@ const App = () => {
 
           <div>
             MENU:
-            <Link to="/detail/">DETAIL</Link>
+            <Link to="/detail/63182cc192b3f2ea552f01fd">DETAIL</Link>
           </div>
 
           <Routes>
-            <Route path="/detail" element={<ReviewDetail />}/>
+            <Route path="/detail/:id" element={<ReviewDetail />} />
           </Routes>
         </div>
 
-      </starContext.Provider>
+      </reviewContext.Provider>
       </Router>
     );
 }
