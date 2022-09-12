@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import ReviewDetail from './starLib/ReviewDetail';
+import ReviewDetail from './reviewLib/ReviewDetail';
 
 const App = () => {
   const starContext = createContext();
