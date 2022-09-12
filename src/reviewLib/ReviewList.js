@@ -1,9 +1,9 @@
 import React from "react";
 
-const ReivewList = () => { 
+const ReviewList = () => { 
     return (
         <div></div>
     );
  }
 
-export default ReivewList;
+export default ReviewList;

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import ReviewDetail from './reviewLib/ReviewDetail';
+import ReviewList from './reviewLib/ReviewList';
 
 const App = () => {
   const reviewContext = createContext();
@@ -20,11 +21,12 @@ const App = () => {
 
           <div>
             MENU:
-            <Link to="/detail/63182cc192b3f2ea552f01fd">DETAIL</Link>
+            <Link to="/reviews/">LIST</Link>
           </div>
 
           <Routes>
-            <Route path="/detail/:id" element={<ReviewDetail />} />
+            <Route path="/reviews/" element={<ReviewList />} />
+            <Route path="/reviews/:id" element={<ReviewDetail />} />
           </Routes>
         </div>
 
