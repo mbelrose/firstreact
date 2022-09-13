@@ -5,12 +5,22 @@ const ControllerError = require('./ControllerError');
 
 const getOne =  (req, res, next) => {
 
-    const id = mongoose.Types.ObjectId(req.params['id']);
     mongoose.connect(ConnectionString)
     .then((prom) => { 
+        
+        let id;
+        try {
+            id = mongoose.Types.ObjectId(req.params['id']);
+        } catch (err){
+            throw new Error('Bad review ID.');
+        }
+        return reviews.findById(id);
 
-        return reviewSearch = reviews.findById(id)
-     }).then( (review) => {
+    }).then( (review) => {
+
+        if (review === null) {
+            throw new Error('No reviews found.');
+        }
 
         res.status(200).send(review);
         return review;

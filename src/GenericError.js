@@ -1,7 +1,7 @@
 const GenericError = (err) => {
-    return( JSON.parse({
-        "error": err.message
-    }));
+    return( {
+        "_errorMessage": err.message
+    });
 }
 
 export default GenericError;
