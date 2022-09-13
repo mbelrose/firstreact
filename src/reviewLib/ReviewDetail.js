@@ -2,29 +2,39 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import StarRating from './StarRating';
-import GenericError from '../GenericError';
-
 
 const ReviewDetail = () => {
 
     const {id} = useParams();
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
     fetch('/controller/reviews/' + id)
     .then((response) => { 
         return response.json();
-    }).then(( reviewFetch ) => { 
-        setReview(reviewFetch);
-        setRating(reviewFetch.rating);
-    }).catch(GenericError)
-    .catch(() => { setReview({name: 'error', rating: 1});setRating(1) });
+    }).then(( reviewFound ) => { 
+        setReview(reviewFound);
+        setRating(reviewFound.rating);
+        if (reviewFound._errorMessage !== null) {
+            throw new Error(reviewFound.error);
+        }
+    }).catch((err) => { 
+        setErrorMessage(err.message);
+    });
 
-    return (
-        <React.Fragment>
-            <div>name: {review.name}</div>
-            <StarRating rating={rating} setRating={setRating}/>
-        </React.Fragment>
-    );
+    if (errorMessage === '') {
+        return (
+            <div>
+                <div>name: {review.name}</div>
+                <StarRating rating={rating} setRating={setRating}/>
+            </div>
+        );
+    } else {
+        return(
+            <div>{errorMessage}</div>
+        );
+    }
+
 }
 
 export default ReviewDetail;
