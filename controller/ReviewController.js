@@ -36,10 +36,14 @@ const getAll = (req, res, next) => {
     mongoose.connect(ConnectionString)
     .then(( connection ) => { 
 
-        return reviewsSearch = reviews.find({});
+        return reviewsSearch = reviews.find();
         
      }).then((reviews) => { 
         
+        if (reviews.length === 0) {
+            throw new Error('No reviews found.');
+        }
+
         res.status(200).send(reviews);
         return reviews;
         next();
