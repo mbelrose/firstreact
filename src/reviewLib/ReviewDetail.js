@@ -10,7 +10,7 @@ const ReviewDetail = () => {
     const {id} = useParams();
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState({});
-    fetch('/controller/review/' + id)
+    fetch('/controller/reviews/' + id)
     .then((response) => { 
         return response.json();
     }).then(( reviewFetch ) => { 
