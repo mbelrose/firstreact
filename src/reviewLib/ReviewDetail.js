@@ -16,7 +16,7 @@ const ReviewDetail = () => {
         setReview(reviewFound);
         setRating(reviewFound.rating);
         if (reviewFound._errorMessage !== null) {
-            throw new Error(reviewFound.error);
+            throw new Error(reviewFound._errorMessage);
         }
     }).catch((err) => { 
         setErrorMessage(err.message);
