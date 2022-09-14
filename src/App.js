@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import ReviewDetail from './reviewLib/ReviewDetail';
 import ReviewList from './reviewLib/ReviewList';
+import ReviewUpdate from './reviewLib/ReviewUpdate';
 
 const App = () => {
   const reviewContext = createContext();
@@ -27,6 +28,7 @@ const App = () => {
           <Routes>
             <Route path="/reviews/" element={<ReviewList />} />
             <Route path="/reviews/:id" element={<ReviewDetail />} />
+            <Route path="/reviews/update/:id" element={<ReviewUpdate />} />
           </Routes>
         </div>
 
