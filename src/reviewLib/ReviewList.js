@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 const ReviewList = () => { 
 
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
 
     fetch('/controller/reviews/')
@@ -13,6 +14,7 @@ const ReviewList = () => {
     }).then( (reviewList ) => { 
 
         setReviews(reviewList);
+        setLoading(false);
         if (reviewList._errorMessage !== null) {
             throw new Error(reviewList._errorMessage); 
         }
@@ -21,7 +23,15 @@ const ReviewList = () => {
         setErrorMessage(err.message);
     });
         
-    if (errorMessage === '') {
+    if (errorMessage !== '') {
+        return (
+            <div>Error: {errorMessage}</div>
+        );
+    } else if (loading) {
+        return (
+            <div>LOADING...</div>
+        );
+    } else {
         return (
             <div>
             { reviews.length} Review(s)<br/>
@@ -33,10 +43,6 @@ const ReviewList = () => {
                     </li> )}
                 </ul>
             </div>
-        );
-    } else {
-        return (
-            <div>Error: {errorMessage}</div>
         );
     }
 
