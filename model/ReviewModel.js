@@ -1,7 +1,7 @@
 //model for reviews collection
 const mongoose = require('mongoose');
 
-const ReviewSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
     name: String,
     rating: {
         type: Number,
@@ -9,9 +9,13 @@ const ReviewSchema = new mongoose.Schema({
         max: 5
     }
 });
-const model = mongoose.model('reviews', ReviewSchema);
+const model = mongoose.model('reviews', schema);
+
+const safeNames = Object.keys(schema.paths).filter( i => ! ['_id', '__v'].includes(i));
 
 module.exports = {
     model,
+    schema,
+    safeNames,
     default: model
 };
