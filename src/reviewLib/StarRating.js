@@ -4,18 +4,19 @@
 import React, {useEffect, useState} from 'react';
 import { FaStar } from 'react-icons/fa';
 
-const StarRating = ({rating, setRating}) => {
+export default function StarRating ({rating, setRating}) => {
     const STAR_LIMIT = 5;
-    let starSet = [];
+    const [starSet, setStarSet] = useState([]);
     useEffect (()=> {
-        starSet = [];
+        let iSet = [];
         for (let i=1; i<=STAR_LIMIT; i++)  {
-            starSet.push(
+            iSet.push(
                 <FaStar key={i}
                 color={i<=rating?'red':'grey'} 
                 onClick={() => setRating(i)}
             />);
         }
+        setStarSet(iSet);
     }, [rating]);
     return (
         <React.Fragment>
@@ -24,5 +25,3 @@ const StarRating = ({rating, setRating}) => {
     );
 
 }
-
-export default StarRating;
