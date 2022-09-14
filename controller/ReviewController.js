@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ConnectionString = require('../model/ConnectionString');
-const reviews = require('../model/ReviewModel').model;
+const reviewModel = require('../model/ReviewModel').model;
 const ControllerError = require('./ControllerError');
 
 const getOne =  (req, res, next) => {
@@ -14,7 +14,7 @@ const getOne =  (req, res, next) => {
         } catch (err){
             throw new Error('Bad review ID.');
         }
-        return reviews.findById(id);
+        return reviewModel.findById(id);
 
     }).then( (review) => {
 
@@ -36,7 +36,7 @@ const getAll = (req, res, next) => {
     mongoose.connect(ConnectionString)
     .then(( connection ) => { 
 
-        return reviewsSearch = reviews.find();
+        return reviewsSearch = reviewModel.find();
         
      }).then((reviews) => { 
         
