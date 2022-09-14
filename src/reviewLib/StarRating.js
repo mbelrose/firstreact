@@ -4,7 +4,7 @@
 import React, {useEffect, useState} from 'react';
 import { FaStar } from 'react-icons/fa';
 
-export default function StarRating ({rating, setRating}) => {
+export default function StarRating ({rating, setRating}) {
     const STAR_LIMIT = 5;
     const [starSet, setStarSet] = useState([]);
     useEffect (()=> {
