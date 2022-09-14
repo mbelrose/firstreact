@@ -8,20 +8,24 @@ const ReviewList = () => {
     const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
 
-    fetch('/controller/reviews/')
-    .then((response) => { 
-        return response.json();
-    }).then( (reviewList ) => { 
-
-        setReviews(reviewList);
-        setLoading(false);
-        if (reviewList._errorMessage !== null) {
-            throw new Error(reviewList._errorMessage); 
-        }
+    useState(() => { 
         
-    }).catch((err) => { 
-        setErrorMessage(err.message);
-    });
+        fetch('/controller/reviews/')
+        .then((response) => { 
+            return response.json();
+        }).then( (reviewList ) => { 
+
+            setReviews(reviewList);
+            setLoading(false);
+            if (reviewList._errorMessage !== null) {
+                throw new Error(reviewList._errorMessage); 
+            }
+            
+        }).catch((err) => { 
+            setErrorMessage(err.message);
+        });
+},[]);
+
         
     if (errorMessage !== '') {
         return (

@@ -23,20 +23,25 @@ export default function ReviewUpdate () {
       
     }, [rating]);
     
+
+    useEffect(() => {
     
-    fetch('/controller/reviews/' + id)
-    .then((response) => { 
-        return response.json();
-    }).then(( reviewFound ) => { 
-        setReview(reviewFound);
-        setRating(reviewFound.rating);
-        setLoading(false);
-        if (reviewFound._errorMessage !== null) {
-            throw new Error(reviewFound._errorMessage);
-        }
-    }).catch((err) => { 
-        setErrorMessage(err.message);
-    });
+        fetch('/controller/reviews/' + id)
+        .then((response) => { 
+
+            return response.json();
+        }).then(( reviewFound ) => { 
+            setReview(reviewFound);
+            setRating(reviewFound.rating);
+            setLoading(false);
+            if (reviewFound._errorMessage !== null) {
+                throw new Error(reviewFound._errorMessage);
+            }
+        }).catch((err) => { 
+            setErrorMessage(err.message);
+        });
+    }, [])
+
 
     if (errorMessage !== '') {
         return(

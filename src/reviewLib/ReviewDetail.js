@@ -1,5 +1,5 @@
 // given a userid, checks validity and displays rating details
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import StarRating from './StarRating';
 
@@ -10,20 +10,23 @@ const ReviewDetail = () => {
     const [review, setReview] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(true);
-    
-    fetch('/controller/reviews/' + id)
-    .then((response) => { 
-        return response.json();
-    }).then(( reviewFound ) => { 
-        setReview(reviewFound);
-        setRating(reviewFound.rating);
-        setLoading(false);
-        if (reviewFound._errorMessage !== null) {
-            throw new Error(reviewFound._errorMessage);
-        }
-    }).catch((err) => { 
-        setErrorMessage(err.message);
-    });
+
+    useEffect(() => {
+        fetch('/controller/reviews/' + id)
+        .then((response) => { 
+
+            return response.json();
+        }).then(( reviewFound ) => { 
+            setReview(reviewFound);
+            setRating(reviewFound.rating);
+            setLoading(false);
+            if (reviewFound._errorMessage !== null) {
+                throw new Error(reviewFound._errorMessage);
+            }
+        }).catch((err) => { 
+            setErrorMessage(err.message);
+        });
+    }, [])
 
     if (errorMessage !== '') {
         return(
