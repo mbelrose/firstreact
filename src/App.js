@@ -5,6 +5,7 @@ import './App.css';
 import ReviewDetail from './reviewLib/ReviewDetail';
 import ReviewList from './reviewLib/ReviewList';
 import ReviewUpdate from './reviewLib/ReviewUpdate';
+import WelcomePage from './WelcomePage';
 
 const App = () => {
   const reviewContext = createContext();
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/reviews/" element={<ReviewList />} />
             <Route path="/reviews/:id" element={<ReviewDetail />} />
             <Route path="/reviews/update/:id" element={<ReviewUpdate />} />
+            <Route path="/" element={<WelcomePage />} />
           </Routes>
         </div>
 
