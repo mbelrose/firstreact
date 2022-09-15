@@ -8,7 +8,7 @@ const ReviewDetail = () => {
     const {id} = useParams();
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState({});
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('_NONE');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const ReviewDetail = () => {
         });
     }, [])
 
-    if (errorMessage !== '') {
+    if (errorMessage !== '_NONE') {
         return(
             <div>{errorMessage}</div>
         );

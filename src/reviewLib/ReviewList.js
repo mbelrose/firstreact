@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 const ReviewList = () => { 
 
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('_NONE');
     const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
 
@@ -27,7 +27,7 @@ const ReviewList = () => {
 },[]);
 
         
-    if (errorMessage !== '') {
+    if (errorMessage !== '_NONE') {
         return (
             <div>Error: {errorMessage}</div>
         );
