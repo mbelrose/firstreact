@@ -73,7 +73,7 @@ const updateOne =  (req, res, next) => {
             throw new Error('No reviews found.');
         }
 
-        console.log(req.body);
+        // console.log(req.body);
         // review = {...review, req.body};
 
 
