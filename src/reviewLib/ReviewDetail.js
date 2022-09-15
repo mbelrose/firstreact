@@ -5,7 +5,8 @@ import StarRating from './StarRating';
 
 const ReviewDetail = () => {
 
-    const {id} = useParams();
+    const id = useParams().id.match(/^\w{1,255}$/).shift();
+
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState({});
     const [errorMessage, setErrorMessage] = useState('_NONE');
