@@ -20,7 +20,7 @@ const ReviewDetail = () => {
             setReview(reviewFound);
             setRating(reviewFound.rating);
             setLoading(false);
-            if (reviewFound._errorMessage !== null) {
+            if (reviewFound._errorMessage !== undefined) {
                 throw new Error(reviewFound._errorMessage);
             }
         }).catch((err) => { 

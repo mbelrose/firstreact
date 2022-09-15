@@ -17,7 +17,7 @@ const ReviewList = () => {
 
             setReviews(reviewList);
             setLoading(false);
-            if (reviewList._errorMessage !== null) {
+            if (reviewList._errorMessage !== undefined) {
                 throw new Error(reviewList._errorMessage); 
             }
             
