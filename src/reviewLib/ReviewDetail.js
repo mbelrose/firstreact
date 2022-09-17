@@ -41,7 +41,7 @@ export default function ReviewDetail () {
         return (
             <div>
                 <div>name: {review.name}</div>
-                <StarRating rating={rating} setRating={setRating}/>
+                <StarRating rating={rating} setRating={()=>{}}/>
                 <br/>
                 <Link to={'/reviews/update/'+ id}>UPDATE</Link>
             </div>
