@@ -5,7 +5,7 @@ const {getOne, getAll, updateOne} = require('./ReviewController');
 
 app.use(express.json());
 
-app.post('controller/reviews', updateOne);
+app.post('/controller/reviews', updateOne);
 
 app.get('/controller/reviews', getAll);
 
