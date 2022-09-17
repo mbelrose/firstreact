@@ -14,7 +14,7 @@ function getOne (req, res, next) {
         } catch (err){
             throw new Error('Bad review ID.');
         }
-        return model.findById(id);
+        return model.findById(id).select({ _id: 0, __v: 0});
 
     }).then( (review) => {
 
@@ -36,7 +36,7 @@ function getAll (req, res, next) {
     mongoose.connect(ConnectionString)
     .then(( connection ) => { 
 
-        return model.find();
+        return model.find().select({ _id: 0 });
         
      }).then((reviews) => { 
         
