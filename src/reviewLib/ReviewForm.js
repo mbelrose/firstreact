@@ -18,6 +18,7 @@ export default function ReviewForm (props) {
                     onChange={(e) => setReview({...review, name: e.target.value})}
                  />
             </label>
+            <br/><input type="submit" />
         </form>
 
     );
