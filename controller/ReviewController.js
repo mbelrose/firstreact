@@ -36,7 +36,7 @@ function getAll (req, res, next) {
     mongoose.connect(ConnectionString)
     .then(( connection ) => { 
 
-        return model.find().select({ _id: 0 });
+        return model.find().select({ __v: 0 });
         
      }).then((reviews) => { 
         
