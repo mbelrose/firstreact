@@ -1,4 +1,4 @@
-const GenericError = (err) => {
+function GenericError (err) {
     return( {
         "_errorMessage": err.message
     });

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import StarRating from './StarRating';
 
-const ReviewDetail = () => {
+export default function ReviewDetail () {
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
 
@@ -50,5 +50,3 @@ const ReviewDetail = () => {
     }
 
 }
-
-export default ReviewDetail;

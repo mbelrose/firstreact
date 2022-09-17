@@ -7,7 +7,7 @@ import ReviewList from './reviewLib/ReviewList';
 import ReviewUpdate from './reviewLib/ReviewUpdate';
 import WelcomePage from './WelcomePage';
 
-const App = () => {
+export default function App () {
   const reviewContext = createContext();
 
     return (
@@ -38,5 +38,3 @@ const App = () => {
       </Router>
     );
 }
-
-export default App;

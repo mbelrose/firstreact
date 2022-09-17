@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 
 
-const ReviewList = () => { 
+export default function ReviewList () { 
 
     const [errorMessage, setErrorMessage] = useState('_NONE');
     const [loading, setLoading] = useState(true);
@@ -51,5 +51,3 @@ const ReviewList = () => {
     }
 
 }
-
-export default ReviewList;

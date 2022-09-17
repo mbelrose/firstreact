@@ -3,7 +3,7 @@ const ConnectionString = require('../model/ConnectionString');
 const model = require('../model/ReviewModel').model;
 const ControllerError = require('./ControllerError');
 
-const getOne =  (req, res, next) => {
+function getOne (req, res, next) {
 
     mongoose.connect(ConnectionString)
     .then((prom) => { 
@@ -31,7 +31,7 @@ const getOne =  (req, res, next) => {
     
 }
 
-const getAll = (req, res, next) => { 
+function getAll (req, res, next) { 
 
     mongoose.connect(ConnectionString)
     .then(( connection ) => { 
@@ -54,7 +54,7 @@ const getAll = (req, res, next) => {
     
 }
 
-const updateOne =  (req, res, next) => {
+function updateOne (req, res, next) {
 
     mongoose.connect(ConnectionString)
     .then((prom) => { 
