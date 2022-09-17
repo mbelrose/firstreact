@@ -12,13 +12,14 @@ export default function ReviewUpdate () {
     const [status, setStatus] = useState('IDLE');
     const [loading, setLoading] = useState(true);
 
+    const id = useParams().id.match(/^\w{1,255}$/).shift();
+
     function updateReview (reviewPosting) {
 
-        
         setStatus('SAVING');
         fetch(
-            '/controller/reviews', {
-                method: 'POST',
+            '/controller/reviews/' + id, {
+                method: 'PUT',
                 body: JSON.stringify(reviewPosting)
             })
         .then( (res) => {
@@ -44,20 +45,20 @@ export default function ReviewUpdate () {
         }
     }
 
-    const id = useParams().id.match(/^\w{1,255}$/).shift();
+    const updateRating = (rating) => {
+        //save rating on every star click
+        if (rating !== undefined ) {
+            
+            setRating(rating);
+            updateReview({rating: rating});
+
+        }
+    }
 
     useEffect(() => {
-      //save rating on every star click
-      if (rating !== undefined ) {
+        setStatus('IDLE');
+        setErrorMessage('_NONE');
         
-          updateReview({rating: rating});
-
-      }
-    }, [rating]);
-    
-
-
-    useEffect(() => {
         fetch('/controller/reviews/' + id)
         .then(response => response.json())
         .then( ( reviewFound ) => { 
@@ -96,7 +97,7 @@ export default function ReviewUpdate () {
                 />
                 <StarRating 
                     rating={rating} 
-                    setRating={setRating}
+                    setRating={updateRating}
                 />
                 {statusMessage(status)}
             </div>

@@ -56,22 +56,23 @@ function getAll (req, res, next) {
 
 function updateOne (req, res, next) {
 
-    let review = req.body;
+    const review = req.body;  //glitched
     let id;
     mongoose.connect(ConnectionString)
     .then((prom) => { 
-        
+
         try {
             id = mongoose.Types.ObjectId(req.params['id']);
         } catch (err){
             throw new Error('Bad review ID.');
         }
+
         return model.updateOne({id: id}, review);
 
     }).then( (updateResult) => {
 
-        if (updateResult === null) {
-            throw new Error('No reviews found.');
+        if (! updateResult.acknowledged ) {
+            throw new Error('Failed to update.');
         }
 
         res.status(200).send();
