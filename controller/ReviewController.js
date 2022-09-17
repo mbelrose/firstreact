@@ -56,29 +56,26 @@ function getAll (req, res, next) {
 
 function updateOne (req, res, next) {
 
+    let review = req.body;
+    let id;
     mongoose.connect(ConnectionString)
     .then((prom) => { 
         
-        let id;
         try {
             id = mongoose.Types.ObjectId(req.params['id']);
         } catch (err){
             throw new Error('Bad review ID.');
         }
-        return model.findById(id);
+        return model.updateOne({id: id}, review);
 
-    }).then( (review) => {
+    }).then( (updateResult) => {
 
-        if (review === null) {
+        if (updateResult === null) {
             throw new Error('No reviews found.');
         }
 
-        // console.log(req.body);
-        // review = {...review, req.body};
-
-
-        res.status(200).send(review);
-        return review;
+        res.status(200).send();
+        return updateResult;
         next();
 
     }).catch((err) => ControllerError(req, res, err));

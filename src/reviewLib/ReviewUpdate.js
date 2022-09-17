@@ -3,64 +3,76 @@ import { useParams } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
 import StarRating from './StarRating';
 
-
-function updateReviewSubmit (event, reviewTmp) {
-    //save rating on form submit
-    event.preventDefault();
-    updateReview(reviewTmp);
-}
-
-function updateReview (reviewTemp) {
-
-}
-
 export default function ReviewUpdate () {
-
-    const id = useParams().id.match(/^\w{1,255}$/).shift();
 
     const [rating, setRating] = useState();
     const [review, setReview] = useState();
 
     const [errorMessage, setErrorMessage] = useState('_NONE');
-    const [status, setStatus] = useState('idle');
+    const [status, setStatus] = useState('IDLE');
     const [loading, setLoading] = useState(true);
+
+    function updateReview (reviewPosting) {
+
+        
+        setStatus('SAVING');
+        fetch(
+            '/controller/reviews', {
+                method: 'POST',
+                body: JSON.stringify(reviewPosting)
+            })
+        .then( (res) => {
+            if (res.ok) {
+                setStatus('SUCCESS');
+            } else {
+                setStatus('ERROR');
+            }
+        }).catch((err) => { 
+            setStatus('ERROR');
+            setErrorMessage(err.message);
+         });
+    
+    }
+
+    function statusMessage(status) {
+        switch (status) { 
+            case 'IDLE': return ('');
+            case 'SAVING': return (<div>Saving...</div>);
+            case 'ERROR': return (<div>Error.</div>);
+            case 'SUCCESS': return (<div>Saved.</div>);
+            default: return ('');
+        }
+    }
+
+    const id = useParams().id.match(/^\w{1,255}$/).shift();
 
     useEffect(() => {
       //save rating on every star click
-      updateReview({rating: rating});
-    
+      if (rating !== undefined ) {
+        
+          updateReview({rating: rating});
+
+      }
     }, [rating]);
     
-    function statusMessage(status) {
-        switch (status) { 
-            case 'saving': return (<div>saving</div>);
-            case 'error': return (<div>error</div>);
-            default: return ('');
-        }
-        
-    }
 
 
     useEffect(() => {
         fetch('/controller/reviews/' + id)
         .then(response => response.json())
-        .then( ( reviewFound, err ) => { 
+        .then( ( reviewFound ) => { 
 
-            setStatus(status);
-            console.log('in object: '+ Object.keys({...reviewFound}) );
-            setReview({test: 1});
-            let x = review;
-            console.log('in review: ' + Object.keys(x) );
+            setReview(reviewFound);
             setRating(reviewFound.rating);
             setLoading(false);
             if (reviewFound._errorMessage !== undefined) {
                 throw new Error(reviewFound._errorMessage);
             }
     
-        })
-        .catch((err) => { 
+        }).catch((err) => { 
             setErrorMessage(err.message);
         });
+        
     }, []);
 
 
@@ -76,13 +88,19 @@ export default function ReviewUpdate () {
         return (
             <div>
                 <ReviewForm 
-                    review={review} setReview={setReview}
-                    submitAction={(event)=>updateReviewSubmit(event,review)}
+                    review={review} 
+                    setReview={setReview}
+                    submitAction={(event)=> {
+                        event.preventDefault();
+                        updateReview(review); }}
                 />
-                <StarRating rating={rating} setRating={setRating}/>
+                <StarRating 
+                    rating={rating} 
+                    setRating={setRating}
+                />
                 {statusMessage(status)}
             </div>
         );
     }
-
 }
+
