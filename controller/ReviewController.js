@@ -56,7 +56,8 @@ function getAll (req, res, next) {
 
 function updateOne (req, res, next) {
 
-    const review = req.body;  //glitched
+    const review = req.body;
+
     let id;
     mongoose.connect(ConnectionString)
     .then((prom) => { 
