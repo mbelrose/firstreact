@@ -4,7 +4,7 @@ import React from 'react';
 export default function ReviewForm (props) { 
     
     const {review, setReview, submitAction} = props;
-    // const {review} = reviewProp;
+
     return (
         <form onSubmit={submitAction}>
             <label>
@@ -15,7 +15,7 @@ export default function ReviewForm (props) {
                     type="text" 
                     required
                     value={review.name}
-                    onChange={(value) => setReview({...review, name: value})}
+                    onChange={(e) => setReview({...review, name: e.target.value})}
                  />
             </label>
         </form>
