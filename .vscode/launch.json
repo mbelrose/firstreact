@@ -15,13 +15,17 @@
         },
         {
             "type": "firefox",
-            "url": "http://localhost:3000/",
             "request": "attach",
             "name": "Attach Firefox",
+            "url": "http://localhost:3000/",
             "pathMappings": [
                 {
                     "url": "webpack:///src",
                     "path": "${workspaceFolder}/src"
+                },
+                {
+                    "url": "http://localhost:3000/",
+                    "path": "${workspaceFolder}/src/"
                 }
             ]
         }
