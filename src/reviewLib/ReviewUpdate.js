@@ -49,7 +49,6 @@ export default function ReviewUpdate () {
         //save rating on every star click
         if (rating !== undefined ) {
 
-            setReview(...review, rating: rating);
             updateReview({rating: rating});
 
         }
@@ -96,7 +95,9 @@ export default function ReviewUpdate () {
                 />
                 <StarRating
                     review={review}
+                    setReview={setReview}
                     updateRating={updateRating}
+                    clickable="true"
                 />
                 {statusMessage(status)}
             </div>
