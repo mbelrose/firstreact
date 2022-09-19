@@ -5,7 +5,6 @@ import StarRating from './StarRating';
 
 export default function ReviewUpdate () {
 
-    const [rating, setRating] = useState();
     const [review, setReview] = useState();
 
     const [errorMessage, setErrorMessage] = useState('_NONE');
@@ -29,15 +28,15 @@ export default function ReviewUpdate () {
             } else {
                 setStatus('ERROR');
             }
-        }).catch((err) => { 
+        }).catch((err) => {
             setStatus('ERROR');
             setErrorMessage(err.message);
          });
-    
+
     }
 
     function statusMessage(status) {
-        switch (status) { 
+        switch (status) {
             case 'IDLE': return ('');
             case 'SAVING': return (<div>Saving...</div>);
             case 'ERROR': return (<div>Error.</div>);
@@ -49,8 +48,8 @@ export default function ReviewUpdate () {
     const updateRating = (rating) => {
         //save rating on every star click
         if (rating !== undefined ) {
-            
-            setRating(rating);
+
+            setReview(...review, rating: rating);
             updateReview({rating: rating});
 
         }
@@ -59,22 +58,21 @@ export default function ReviewUpdate () {
     useEffect(() => {
         setStatus('IDLE');
         setErrorMessage('_NONE');
-        
+
         fetch('/controller/reviews/' + id)
         .then(response => response.json())
-        .then( ( reviewFound ) => { 
+        .then( ( reviewFound ) => {
 
             setReview(reviewFound);
-            setRating(reviewFound.rating);
             setLoading(false);
             if (reviewFound._errorMessage !== undefined) {
                 throw new Error(reviewFound._errorMessage);
             }
-    
-        }).catch((err) => { 
+
+        }).catch((err) => {
             setErrorMessage(err.message);
         });
-        
+
     }, []);
 
 
@@ -89,16 +87,16 @@ export default function ReviewUpdate () {
     } else {
         return (
             <div>
-                <ReviewForm 
-                    review={review} 
+                <ReviewForm
+                    review={review}
                     setReview={setReview}
                     submitAction={(event)=> {
                         event.preventDefault();
                         updateReview(review); }}
                 />
-                <StarRating 
-                    rating={rating} 
-                    setRating={updateRating}
+                <StarRating
+                    review={review}
+                    updateRating={updateRating}
                 />
                 {statusMessage(status)}
             </div>

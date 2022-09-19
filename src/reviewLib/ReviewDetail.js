@@ -3,34 +3,33 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import StarRating from './StarRating';
 
-export default function ReviewDetail () {
+export default function ReviewDetail() {
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
 
-    const [rating, setRating] = useState(0);
     const [review, setReview] = useState({});
+    
     const [errorMessage, setErrorMessage] = useState('_NONE');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch('/controller/reviews/' + id)
-        .then((response) => { 
+            .then((response) => {
 
-            return response.json();
-        }).then(( reviewFound ) => { 
-            setReview(reviewFound);
-            setRating(reviewFound.rating);
-            setLoading(false);
-            if (reviewFound._errorMessage !== undefined) {
-                throw new Error(reviewFound._errorMessage);
-            }
-        }).catch((err) => { 
-            setErrorMessage(err.message);
-        });
+                return response.json();
+            }).then((reviewFound) => {
+                setReview(reviewFound);
+                setLoading(false);
+                if (reviewFound._errorMessage !== undefined) {
+                    throw new Error(reviewFound._errorMessage);
+                }
+            }).catch((err) => {
+                setErrorMessage(err.message);
+            });
     }, [])
 
     if (errorMessage !== '_NONE') {
-        return(
+        return (
             <div>{errorMessage}</div>
         );
     } else if (loading) {
@@ -41,9 +40,9 @@ export default function ReviewDetail () {
         return (
             <div>
                 <div>name: {review.name}</div>
-                <StarRating rating={rating} setRating={()=>{}}/>
-                <br/>
-                <Link to={'/reviews/update/'+ id}>UPDATE</Link>
+                <StarRating review={review} updateRating={()=>{}} />
+                <br />
+                <Link to={'/reviews/update/' + id}>UPDATE</Link>
             </div>
 
         );
