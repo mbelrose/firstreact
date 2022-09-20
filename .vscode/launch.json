@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "request": "attach",
+            "type": "chrome",
+            "url": "http://localhost:3000/",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "name": "Launch Program",
             "program": "${file}",
             "request": "launch",
@@ -17,17 +25,7 @@
             "type": "firefox",
             "request": "attach",
             "name": "Attach Firefox",
-            "url": "http://localhost:3000/",
-            "pathMappings": [
-                {
-                    "url": "webpack:///src",
-                    "path": "${workspaceFolder}/src"
-                },
-                {
-                    "url": "http://localhost:3000/",
-                    "path": "${workspaceFolder}/src/"
-                }
-            ]
+            "url": "http://localhost:3000/"
         }
     ]
 }
