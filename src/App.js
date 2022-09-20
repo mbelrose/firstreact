@@ -5,6 +5,7 @@ import './App.css';
 import ReviewDetail from './reviewLib/ReviewDetail';
 import ReviewList from './reviewLib/ReviewList';
 import ReviewUpdate from './reviewLib/ReviewUpdate';
+import ReviewInsert from './reviewLib/ReviewInsert';
 import WelcomePage from './WelcomePage';
 
 export default function App () {
@@ -23,11 +24,13 @@ export default function App () {
 
           <div>
             MENU:
-            <Link to="/reviews/">LIST</Link>
+            <Link to="/reviews/">LIST</Link>&nbsp;
+            <Link to="/reviews/insert/">INSERT</Link>
           </div>
 
           <Routes>
             <Route path="/reviews/" element={<ReviewList />} />
+            <Route path="/reviews/insert/" element={<ReviewInsert />} />
             <Route path="/reviews/:id" element={<ReviewDetail />} />
             <Route path="/reviews/update/:id" element={<ReviewUpdate />} />
             <Route path="/" element={<WelcomePage />} />

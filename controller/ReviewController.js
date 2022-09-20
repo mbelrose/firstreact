@@ -81,14 +81,38 @@ function updateOne (req, res, next) {
         next();
 
     }).catch((err) => ControllerError(req, res, err));
-    
-    
+
 }
 
+function insertOne (req, res, next) {
+
+        let reviewTmp = req.body;
+        delete reviewTmp._id;
+    
+        mongoose.connect(ConnectionString)
+        .then( conn => { 
+
+            return model.validate(reviewTmp);
+
+        }).then( validation => {
+            
+            const reviewInsert = new model(reviewTmp);
+            return reviewInsert.save();
+    
+        }).then( review => {
+
+            res.status(200).json(review);
+            return review;
+            next();
+    
+        }).catch((err) => ControllerError(req, res, err));
+
+}
 
 
 module.exports = {
     getOne,
     getAll,
-    updateOne
+    updateOne,
+    insertOne
 };
