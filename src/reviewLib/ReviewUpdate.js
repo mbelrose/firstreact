@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
 import StarRating from './StarRating';
+import StatusMessage from './StatusMessage';
 
 export default function ReviewUpdate () {
 
@@ -9,7 +10,6 @@ export default function ReviewUpdate () {
 
     const [errorMessage, setErrorMessage] = useState('_NONE');
     const [status, setStatus] = useState('IDLE');
-    const STATUS_TIMEOUT = 3000;
     const statusClear = useRef(null);
     const [loading, setLoading] = useState(true);
 
@@ -37,23 +37,6 @@ export default function ReviewUpdate () {
             setErrorMessage(err.message);
          });
 
-    }
-
-    function statusMessage(status) {
-        let message = '';
-        switch (status) {
-            case 'IDLE': message = ''; break;
-            case 'SAVING': message = 'Saving...'; break;
-            case 'ERROR': message = 'Error.'; break;
-            case 'SUCCESS': message = 'Saved.'; break;
-            default: message =  '';
-        }
-        if (message !== '') {
-            statusClear.current = setTimeout(() => {
-                setStatus('');
-            }, STATUS_TIMEOUT);
-        }
-        return (<div>{message}</div>);
     }
 
     const updateRating = (rating) => {
@@ -110,7 +93,7 @@ export default function ReviewUpdate () {
                     updateRating={updateRating}
                     clickable="true"
                 />
-                {statusMessage(status)}
+                <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />
             </div>
         );
     }
