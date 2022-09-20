@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
 import StarRating from './StarRating';
@@ -9,9 +9,13 @@ export default function ReviewUpdate () {
 
     const [errorMessage, setErrorMessage] = useState('_NONE');
     const [status, setStatus] = useState('IDLE');
+    const STATUS_TIMEOUT = 3000;
+    const statusClear = useRef(null);
     const [loading, setLoading] = useState(true);
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
+
+
 
     function updateReview (reviewPosting) {
 
@@ -36,13 +40,20 @@ export default function ReviewUpdate () {
     }
 
     function statusMessage(status) {
+        let message = '';
         switch (status) {
-            case 'IDLE': return ('');
-            case 'SAVING': return (<div>Saving...</div>);
-            case 'ERROR': return (<div>Error.</div>);
-            case 'SUCCESS': return (<div>Saved.</div>);
-            default: return ('');
+            case 'IDLE': message = ''; break;
+            case 'SAVING': message = 'Saving...'; break;
+            case 'ERROR': message = 'Error.'; break;
+            case 'SUCCESS': message = 'Saved.'; break;
+            default: message =  '';
         }
+        if (message !== '') {
+            statusClear.current = setTimeout(() => {
+                setStatus('');
+            }, STATUS_TIMEOUT);
+        }
+        return (<div>{message}</div>);
     }
 
     const updateRating = (rating) => {
