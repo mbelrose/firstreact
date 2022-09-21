@@ -2,7 +2,12 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        minLength: 1,
+        maxLength: 255
+    },
     rating: {
         type: Number,
         min: 1,
