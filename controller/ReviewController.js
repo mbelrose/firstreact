@@ -6,8 +6,8 @@ const ControllerError = require('./ControllerError');
 function getOne (req, res, next) {
 
     mongoose.connect(ConnectionString)
-    .then((prom) => { 
-        
+    .then((prom) => {
+
         let id;
         try {
             id = mongoose.Types.ObjectId(req.params['id']);
@@ -27,31 +27,53 @@ function getOne (req, res, next) {
         next();
 
     }).catch((err) => ControllerError(req, res, err));
-    
-    
+
+
 }
 
-function getAll (req, res, next) { 
+function getAll (req, res, next) {
+
+    const PAGE_SIZE = 3;
+    const MAX_PAGES = 1096;
+
+    let skip = 0;
+    const page = parseInt(req.query.page) || 0;
+    if (1 <= page <= MAX_PAGES ) {
+        skip = (page - 1 ) * PAGE_SIZE;
+    } 
+
+    const query = {};
 
     mongoose.connect(ConnectionString)
-    .then(( connection ) => { 
+    .then(( connection ) => {
 
-        return model.find().select({ __v: 0 });
-        
-     }).then((reviews) => { 
-        
+
+        return model
+            .find(query)
+            .select({ _id: 1, name: 1 })
+            .sort({name: "ascending"})
+            .skip(skip)
+            .limit(PAGE_SIZE);
+
+    }).then((reviews) => {
+
         if (reviews.length === 0) {
             throw new Error('No reviews found.');
         }
 
-        res.status(200).send(reviews);
-        return reviews;
-        next();
-        
-    })
-    .catch((err) => { ControllerError(req, res, err)});
-    
-    
+        model.countDocuments(query).then( (count) => {
+
+            res.status(200).send({
+                count: count,
+                PAGE_SIZE: PAGE_SIZE,
+                reviews: reviews
+            });
+            return reviews;
+            next();
+
+        }).catch((err) => { ControllerError(req, res, err)});
+    }).catch((err) => { ControllerError(req, res, err)});
+
 }
 
 function updateOne (req, res, next) {
@@ -60,7 +82,7 @@ function updateOne (req, res, next) {
 
     let id;
         mongoose.connect(ConnectionString)
-    .then((prom) => { 
+    .then((prom) => {
 
         try {
             id = mongoose.Types.ObjectId(req.params['id']);
@@ -72,7 +94,7 @@ function updateOne (req, res, next) {
     }).then( validate => {
 
         return model.updateOne({id: id}, review);
-        
+
     }).then( (updateResult) => {
 
         if (! updateResult.acknowledged ) {
@@ -91,23 +113,23 @@ function insertOne (req, res, next) {
 
         let reviewTmp = req.body;
         delete reviewTmp._id;
-    
+
         mongoose.connect(ConnectionString)
-        .then( conn => { 
+        .then( conn => {
 
             return model.validate(reviewTmp);
 
         }).then( validation => {
-            
+
             const reviewInsert = new model(reviewTmp);
             return reviewInsert.save();
-    
+
         }).then( review => {
 
             res.status(200).json(review);
             return review;
             next();
-    
+
         }).catch((err) => ControllerError(req, res, err));
 
 }
