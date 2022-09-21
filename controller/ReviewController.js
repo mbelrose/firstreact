@@ -59,7 +59,7 @@ function updateOne (req, res, next) {
     const review = req.body;
 
     let id;
-    mongoose.connect(ConnectionString)
+        mongoose.connect(ConnectionString)
     .then((prom) => { 
 
         try {
@@ -67,9 +67,12 @@ function updateOne (req, res, next) {
         } catch (err){
             throw new Error('Bad review ID.');
         }
+        return model.validate(review);
+
+    }).then( validate => {
 
         return model.updateOne({id: id}, review);
-
+        
     }).then( (updateResult) => {
 
         if (! updateResult.acknowledged ) {
