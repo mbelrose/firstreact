@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
 import StarRating from './StarRating';
 import StatusMessage from './StatusMessage';
@@ -7,6 +7,8 @@ import StatusMessage from './StatusMessage';
 export default function ReviewInsert () {
 
     const [review, setReview] = useState({rating: 1});
+
+    const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState('_NONE');
     const [status, setStatus] = useState('IDLE');
@@ -27,14 +29,16 @@ export default function ReviewInsert () {
             } else {
                 setStatus('ERROR');
             }
+            return res.json();
+        }).then( (reviewResult) => { 
+            setReview(reviewResult);
+            navigate('/reviews/' + reviewResult._id);
+
         }).catch((err) => {
             setStatus('ERROR');
             setErrorMessage(err.message);
          });
 
-    }
-
-    const updateRating = (rating) => {
     }
 
     useEffect(() => {
@@ -50,8 +54,8 @@ export default function ReviewInsert () {
         return(
             <div>{errorMessage}</div>
         );
-    // } else if (status === 'SUCCESS') {
-        // return (<Redirect to={"/reviews/" + review.id} push />);
+    } else if (status === 'SUCCESS') {
+        return (<div>redirecting</div>);
     } else {
         return (
             <div>
@@ -65,7 +69,7 @@ export default function ReviewInsert () {
                 <StarRating
                     review={review}
                     setReview={setReview}
-                    updateRating={updateRating}
+                    updateRating={e=>e}
                     clickable="true"
                 />
                 <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />
