@@ -79,9 +79,10 @@ function getAll (req, res, next) {
 function updateOne (req, res, next) {
 
     const review = req.body;
-
+    delete review._id;
     let id;
-        mongoose.connect(ConnectionString)
+
+    mongoose.connect(ConnectionString)
     .then((prom) => {
 
         try {
@@ -89,9 +90,6 @@ function updateOne (req, res, next) {
         } catch (err){
             throw new Error('Bad review ID.');
         }
-        return model.validate(review);
-
-    }).then( validate => {
 
         return model.updateOne({id: id}, review);
 
@@ -116,10 +114,6 @@ function insertOne (req, res, next) {
 
         mongoose.connect(ConnectionString)
         .then( conn => {
-
-            return model.validate(reviewTmp);
-
-        }).then( validation => {
 
             const reviewInsert = new model(reviewTmp);
             return reviewInsert.save();
