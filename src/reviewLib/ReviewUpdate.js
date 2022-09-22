@@ -6,12 +6,10 @@ import StatusMessage from './StatusMessage';
 
 export default function ReviewUpdate () {
 
-    const [review, setReview] = useState();
+    const [review, setReview] = useState({rating: 1});
 
-    const [errorMessage, setErrorMessage] = useState('_NONE');
-    const [status, setStatus] = useState('IDLE');
+    const [status, setStatus] = useState({ type: 'IDLE' });
     const statusClear = useRef(null);
-    const [loading, setLoading] = useState(true);
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
 
@@ -19,7 +17,7 @@ export default function ReviewUpdate () {
 
     function updateReview (reviewPosting) {
 
-        setStatus('SAVING');
+        setStatus({ type: 'SAVING' });
         fetch(
             '/controller/reviews/' + id, {
                 method: 'PUT',
@@ -28,13 +26,16 @@ export default function ReviewUpdate () {
             })
         .then( (res) => {
             if (res.ok) {
-                setStatus('SUCCESS');
+                setStatus({ type: 'SUCCESS' });
             } else {
-                setStatus('ERROR');
+                res.json().then( (msg) => {
+                    setStatus({ type: 'ERROR', errorMessage: msg._errorMessage });
+                }).catch( (err) => {
+                    setStatus({ type: 'ERROR', errorMessage: 'No response.' });
+                });
             }
         }).catch((err) => {
-            setStatus('ERROR');
-            setErrorMessage(err.message);
+            setStatus({ type: 'ERROR', errorMessage: err.message });
          });
 
     }
@@ -49,53 +50,43 @@ export default function ReviewUpdate () {
     }
 
     useEffect(() => {
-        setStatus('IDLE');
-        setErrorMessage('_NONE');
+        setStatus({ type: 'LOADING' });
+        setReview({rating: 1});
 
         fetch('/controller/reviews/' + id)
         .then(response => response.json())
         .then( ( reviewFound ) => {
 
             setReview(reviewFound);
-            setLoading(false);
+            setStatus({ type: 'IDLE' });
             if (reviewFound._errorMessage !== undefined) {
                 throw new Error(reviewFound._errorMessage);
             }
 
         }).catch((err) => {
-            setErrorMessage(err.message);
+            setStatus({ type: 'ERROR', errorMessage: err.message });
         });
 
     }, []);
 
 
-    if (errorMessage !== '_NONE') {
-        return(
-            <div>{errorMessage}</div>
-        );
-    } else if (loading) {
-        return (
-            <div>LOADING...</div>
-        );
-    } else {
-        return (
-            <div>
-                <ReviewForm
-                    review={review}
-                    setReview={setReview}
-                    submitAction={(event)=> {
-                        event.preventDefault();
-                        updateReview(review); }}
-                />
-                <StarRating
-                    review={review}
-                    setReview={setReview}
-                    updateRating={updateRating}
-                    clickable="true"
-                />
-                <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />
-            </div>
-        );
-    }
+    return (
+        <div>
+            <ReviewForm
+                review={review}
+                setReview={setReview}
+                submitAction={(event)=> {
+                    event.preventDefault();
+                    updateReview(review); }}
+            />
+            <StarRating
+                review={review}
+                setReview={setReview}
+                updateRating={updateRating}
+                clickable="true"
+            />
+            <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />
+        </div>
+    );
 }
 

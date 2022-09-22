@@ -8,16 +8,17 @@ export default function StatusMessage({status, setStatus, statusClear}) {
     const STATUS_TIMEOUT = 3000;
     let message = '';
 
-    switch (status) {
+    switch (status.type) {
         case 'IDLE': message = ''; break;
+        case 'LOADING': message = 'Loading...'; break;
         case 'SAVING': message = 'Saving...'; break;
-        case 'ERROR': message = 'Error.'; break;
+        case 'ERROR': message = 'Error: ' + status.errorMessage; break;
         case 'SUCCESS': message = 'Saved.'; break;
         default: message =  '';
     }
-    if (message !== '') {
+    if (status.type == 'SUCCESS' ) {
         statusClear.current = setTimeout(() => {
-            setStatus('');
+            setStatus({ type: 'IDLE' });
         }, STATUS_TIMEOUT);
     }
     return (<div>{message}</div>);

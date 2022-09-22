@@ -10,13 +10,12 @@ export default function ReviewInsert () {
 
     const navigate = useNavigate();
 
-    const [errorMessage, setErrorMessage] = useState('_NONE');
-    const [status, setStatus] = useState('IDLE');
+    const [status, setStatus] = useState({ type: 'IDLE' });
     const statusClear = useRef(null);
 
     function insertReview (reviewPosting) {
 
-        setStatus('SAVING');
+        setStatus({ type: 'SAVING' });
         fetch(
             '/controller/reviews/', {
                 method: 'POST',
@@ -25,36 +24,36 @@ export default function ReviewInsert () {
             })
         .then( (res) => {
             if (res.ok) {
-                setStatus('SUCCESS');
+                setStatus({ type: 'SUCCESS' });
             } else {
-                setStatus('ERROR');
+                res.json().then( (msg) => {
+                    setStatus({ type: 'ERROR', errorMessage: msg._errorMessage });
+                }).catch( (err) => {
+                    setStatus({ type: 'ERROR', errorMessage: 'No response.' });
+                });
             }
             return res.json();
         }).then( (reviewResult) => { 
-            setReview(reviewResult);
-            navigate('/reviews/' + reviewResult._id);
+
+            if (reviewResult._id) {
+                navigate('/reviews/' + reviewResult._id);
+            }
 
         }).catch((err) => {
-            setStatus('ERROR');
-            setErrorMessage(err.message);
+            setStatus({ type: 'ERROR', errorMessage: err.message});
          });
 
     }
 
     useEffect(() => {
 
-        setStatus('IDLE');
-        setErrorMessage('_NONE');
+        setStatus({ type: 'IDLE' });
         setReview({rating: 1});
 
     }, []);
 
 
-    if (errorMessage !== '_NONE') {
-        return(
-            <div>{errorMessage}</div>
-        );
-    } else if (status === 'SUCCESS') {
+    if (status.type === 'SUCCESS') {
         return (<div>redirecting</div>);
     } else {
         return (
@@ -72,7 +71,10 @@ export default function ReviewInsert () {
                     updateRating={e=>e}
                     clickable="true"
                 />
-                <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />
+                <StatusMessage 
+                    status={status} setStatus={setStatus} 
+                    statusClear={statusClear} 
+                    />
             </div>
         );
     }
