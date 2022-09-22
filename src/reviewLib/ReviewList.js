@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import { Link, useSearchParams } from 'react-router-dom';
 
 
@@ -9,14 +9,13 @@ export default function ReviewList () {
     const [reviews, setReviews] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const [count, setCount] = useState(0);
     const [pages, setPages] = useState(1)
     const [page, setPage] = useState(
         parseInt(searchParams.get('page'))
         || 1
     );
 
-    useState(() => { 
+    useEffect(() => { 
 
         fetch('/controller/reviews/?page=' + page)
         .then((response) => { 
@@ -24,7 +23,6 @@ export default function ReviewList () {
         }).then( (res ) => { 
 
             setReviews(res.reviews);
-            setCount(res.count);
             setPages(parseInt(res.count / res.PAGE_SIZE));
             setLoading(false);
             if (res._errorMessage !== undefined) {
