@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
-    "dependencies": {
+  "dependencies": {
     "dotenv": "^16.0.2",
     "mongoose": "^6.5.4",
     "react": "^18.2.0",
@@ -13,13 +13,12 @@
     "react-scripts": "0.9.5"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"node ./controller/Controller.js\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@testing-library/react": "^13.3.0",
-    "concurrently": "^7.4.0"
+    "@testing-library/react": "^13.3.0"
   }
 }
