@@ -25,17 +25,18 @@ export default function ReviewInsert () {
         .then( (res) => {
             if (res.ok) {
                 setStatus({ type: 'SUCCESS' });
+                return res.json();
             } else {
                 res.json().then( (msg) => {
                     setStatus({ type: 'ERROR', errorMessage: msg._errorMessage });
                 }).catch( (err) => {
                     setStatus({ type: 'ERROR', errorMessage: 'No response.' });
                 });
+                return res;
             }
-            return res.json();
         }).then( (reviewResult) => { 
 
-            if (reviewResult._id) {
+            if (reviewResult._id !== undefined) {
                 navigate('/reviews/' + reviewResult._id);
             }
 
