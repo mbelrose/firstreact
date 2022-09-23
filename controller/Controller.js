@@ -1,17 +1,18 @@
 const port = 3001;
 const express = require('express');
 const app = express();
-const {getOne, getAll, updateOne, insertOne} = require('./ReviewController');
+const ReviewController = require('./ReviewController');
 
 app.use(express.json());
 
-app.post('/controller/reviews/', insertOne);
+app.post('/controller/reviews/', ReviewController.insertOne);
 
-app.put('/controller/reviews/:id', updateOne);
+app.put('/controller/reviews/:id', ReviewController.updateOne);
 
-app.get('/controller/reviews', getAll);
 
-app.get('/controller/reviews/:id', getOne);
+app.get('/controller/reviews', ReviewController.getAll);
+
+app.get('/controller/reviews/:id', ReviewController.getOne);
 
 app.get('/', (req, res) => {
     res.status(200).send('Temp Home Page');
