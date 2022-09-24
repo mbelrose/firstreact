@@ -16,7 +16,7 @@ export default function StatusMessage({status, setStatus, statusClear}) {
         case 'SUCCESS': message = 'Saved.'; break;
         default: message =  '';
     }
-    if (status.type == 'SUCCESS' ) {
+    if (status.type === 'SUCCESS' ) {
         statusClear.current = setTimeout(() => {
             setStatus({ type: 'IDLE' });
         }, STATUS_TIMEOUT);
