@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import StatusMessage from './StatusMessage';
+import StatusMessage from '../common/StatusMessage';
 
 export default function ReviewDelete () {
 

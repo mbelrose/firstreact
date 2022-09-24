@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import ReviewForm from './ReviewForm';
 import StarRating from './StarRating';
-import StatusMessage from './StatusMessage';
+import StatusMessage from '../common/StatusMessage';
 
 export default function ReviewUpdate () {
 
