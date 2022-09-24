@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import deleteReviewFetch from './deleteReviewFetch';
 import StatusMessage from '../common/StatusMessage';
 
 export default function ReviewDelete () {
@@ -9,30 +10,6 @@ export default function ReviewDelete () {
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
 
-    function deleteReview ( id ) {
-
-        setStatus({ type: 'SAVING' });
-        fetch(
-            '/controller/reviews/' + id, {
-                method: 'DELETE',
-                headers: {'Content-Type' : 'application/json'}
-            })
-        .then( (res) => {
-            if (res.ok) {
-                setStatus({ type: 'DELETED' });
-            } else {
-                res.json().then( (msg) => {
-                    setStatus({ type: 'ERROR', errorMessage: msg._errorMessage });
-                }).catch( (err) => {
-                    setStatus({ type: 'ERROR', errorMessage: 'No response.' });
-                });
-            }
-            return res;
-        }).catch((err) => {
-            setStatus({ type: 'ERROR', errorMessage: err.message });
-         });
-
-    }
 
     useEffect(() => {
 
@@ -46,7 +23,7 @@ export default function ReviewDelete () {
         return (
             <div>
                 Are you sure you wish to delete?<br/>
-                <div onClick={e => deleteReview(id)}>Yes</div>
+                <div onClick={e => deleteReviewFetch(id, setStatus)}>Yes</div>
                 <div onClick={e => window.history.back()}>No</div>
             </div>
         );

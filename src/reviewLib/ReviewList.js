@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef } from "react";
 import { Link, useSearchParams } from 'react-router-dom';
+import DeleteButton from "./DeleteButton";
 import StatusMessage from '../common/StatusMessage';
 
 
@@ -49,7 +50,8 @@ export default function ReviewList () {
                 { reviews.map( (i,j) => <li key={j}>
                     <Link to={'/reviews/'+i._id}>
                         {i.name}
-                    </Link>
+                    </Link>&nbsp;
+                    <DeleteButton id={i._id} setStatus={setStatus} />
                 </li> )}
             </ul>
             <Link 
