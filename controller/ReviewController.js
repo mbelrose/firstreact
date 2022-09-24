@@ -91,7 +91,7 @@ function updateOne (req, res, next) {
             throw new Error('Bad review ID.');
         }
 
-        return model.updateOne({id: id}, review);
+        return model.updateOne({_id: id}, review);
 
     }).then( (updateResult) => {
 
