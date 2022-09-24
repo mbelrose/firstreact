@@ -11,7 +11,7 @@ app.put('/controller/reviews/:id', ReviewController.updateOne);
 
 app.delete('/controller/reviews/:id', ReviewController.deleteOne);
 
-app.get('/controller/reviews', ReviewController.getAll);
+app.get('/controller/reviews/', ReviewController.getAll);
 
 app.get('/controller/reviews/:id', ReviewController.getOne);
 
