@@ -128,10 +128,39 @@ function insertOne (req, res, next) {
 
 }
 
+function deleteOne (req, res, next) {
+
+    let id;
+
+    mongoose.connect(ConnectionString)
+    .then((prom) => {
+
+        try {
+            id = mongoose.Types.ObjectId(req.params['id']);
+        } catch (err){
+            throw new Error('Bad review ID.');
+        }
+
+        return model.deleteOne({_id: id});
+
+    }).then( (deleteResult) => {
+        if (! deleteResult.acknowledged || deleteResult.deletedCount !== 1) {
+            throw new Error('Failed to delete.');
+        }
+
+        res.status(200).send();
+        return deleteResult;
+        next();
+
+    }).catch((err) => ControllerError(req, res, err));
+
+}
+
 
 module.exports = {
     getOne,
     getAll,
     updateOne,
-    insertOne
+    insertOne,
+    deleteOne
 };

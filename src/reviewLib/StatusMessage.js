@@ -14,6 +14,8 @@ export default function StatusMessage({status, setStatus, statusClear}) {
         case 'SAVING': message = 'Saving...'; break;
         case 'ERROR': message = 'Error: ' + status.errorMessage; break;
         case 'SUCCESS': message = 'Saved.'; break;
+        case 'DELETING': message = 'Deleting...'; break;
+        case 'DELETED': message = 'Deleted.'; break;
         default: message =  '';
     }
     if (status.type === 'SUCCESS' ) {

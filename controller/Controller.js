@@ -9,6 +9,7 @@ app.post('/controller/reviews/', ReviewController.insertOne);
 
 app.put('/controller/reviews/:id', ReviewController.updateOne);
 
+app.delete('/controller/reviews/:id', ReviewController.deleteOne);
 
 app.get('/controller/reviews', ReviewController.getAll);
 

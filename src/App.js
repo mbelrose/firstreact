@@ -6,6 +6,7 @@ import ReviewDetail from './reviewLib/ReviewDetail';
 import ReviewList from './reviewLib/ReviewList';
 import ReviewUpdate from './reviewLib/ReviewUpdate';
 import ReviewInsert from './reviewLib/ReviewInsert';
+import ReviewDelete from './reviewLib/ReviewDelete';
 import WelcomePage from './WelcomePage';
 
 export default function App () {
@@ -29,10 +30,11 @@ export default function App () {
           </div>
 
           <Routes>
-            <Route path="/reviews/" element={<ReviewList />} />
             <Route path="/reviews/insert/" element={<ReviewInsert />} />
-            <Route path="/reviews/:id" element={<ReviewDetail />} />
             <Route path="/reviews/update/:id" element={<ReviewUpdate />} />
+            <Route path="/reviews/delete/:id" element={<ReviewDelete />} />
+            <Route path="/reviews/:id" element={<ReviewDetail />} />
+            <Route path="/reviews/" element={<ReviewList />} />
             <Route path="/" element={<WelcomePage />} />
           </Routes>
         </div>

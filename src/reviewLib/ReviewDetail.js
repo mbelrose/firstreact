@@ -47,7 +47,8 @@ export default function ReviewDetail() {
                     clickable="false"
                 />
                 <br />
-                <Link to={'/reviews/update/' + id}>UPDATE</Link>
+                <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;
+                <Link to={'/reviews/delete/' + id}>DELETE</Link>
             </div>
 
         );
