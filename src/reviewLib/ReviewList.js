@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef } from "react";
 import { Link, useSearchParams } from 'react-router-dom';
 import DeleteButton from "./DeleteButton";
 import StatusMessage from '../common/StatusMessage';
+import PaginationLinks from "../common/PaginationLinks";
 
 
 export default function ReviewList () { 
@@ -13,7 +14,8 @@ export default function ReviewList () {
     const statusClear = useRef(null);
 
 
-    const [pages, setPages] = useState(1)
+    const [pageSize, setPageSize] = useState(3);
+    const [count, setCount] = useState(1);
     const [page, setPage] = useState(
         parseInt(searchParams.get('page'))
         || 1
@@ -31,7 +33,8 @@ export default function ReviewList () {
                     setStatus({ type: 'ERROR', errorMessage: msg._errorMessage });
                 } else {
                     setReviews(msg.reviews);
-                    setPages(parseInt(msg.count / msg.PAGE_SIZE));
+                    setCount(msg.count);
+                    setPageSize(msg.PAGE_SIZE);
                     setStatus({ type: 'IDLE' });
                 }
 
@@ -54,15 +57,11 @@ export default function ReviewList () {
                     <DeleteButton id={i._id} setStatus={setStatus} />
                 </li> )}
             </ul>
-            <Link 
-                to={'/reviews/?page=' + ((page > 1)?page - 1:1) } 
-                onClick={e=>{e.preventDefault;setPage((page > 1)?page - 1:1 )}}
-            >&lt;&lt;PREV</Link>&nbsp;
-            Page {page } of { pages } &nbsp;
-            <Link 
-                to={'/reviews/?page=' + ((page < pages)?page +1:pages) }
-                onClick={e=>{e.preventDefault;setPage((page < pages)?page +1:pages )}}
-            >NEXT&gt;&gt;</Link>
+            <PaginationLinks 
+                count={count} 
+                page={page} setPage={setPage}
+                pageSize={pageSize} 
+            />
             <br/>
             <StatusMessage 
                 status={status} setStatus={setStatus} 
