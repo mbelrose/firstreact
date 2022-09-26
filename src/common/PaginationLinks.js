@@ -1,16 +1,17 @@
 // take count, state for page, and pagesize constant
 // make links to next and previous page
-import React, { useEffect } from "react";
+import React from "react";
 import {Link} from 'react-router-dom';
 
-export default function PaginationLinks ({count, page, setPage, pageSize}) {
+export default function PaginationLinks ({count, page : oldPage, setPage, pageSize}) {
+
 
     pageSize = parseInt(pageSize);
     if ( isNaN(pageSize) || pageSize < 1 ) { pageSize = 1 }
     count = parseInt(count);
     if ( isNaN(count) ) { count = 1 }
-    setPage(parseInt(page));
-    if ( isNaN(page) ) { setPage(1) }
+    let page = (parseInt(oldPage));
+    if ( isNaN(page) || page < 1 ) { page = 1 }
     
     const pages = Math.ceil(count / pageSize);
     const prevPage = (page > 1) ? page-1 : 0;
