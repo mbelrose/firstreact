@@ -2,7 +2,10 @@
 import React from 'react';
 
 export default function ReviewForm ({review, setField, submitAction}) { 
-    
+
+    const fieldProps = {
+        onChange: (e) => setField({[e.target.name]: e.target.value})
+    };
     return (
         <form onSubmit={submitAction}>
             <label>
@@ -13,7 +16,7 @@ export default function ReviewForm ({review, setField, submitAction}) {
                     type="text" 
                     required
                     value={review.name}
-                    onChange={(e) => setField({name: e.target.value})}
+                    {...fieldProps}
                  />
             </label>
             <br/><input type="submit" />
