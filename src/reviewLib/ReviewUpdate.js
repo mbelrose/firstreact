@@ -74,16 +74,15 @@ export default function ReviewUpdate () {
         <div>
             <ReviewForm
                 review={review}
-                setReview={setReview}
+                setField={(field) => setReview({...review, ...field})}
                 submitAction={(event)=> {
                     event.preventDefault();
                     updateReview(review); }}
             />
             <StarRating
                 review={review}
-                setReview={setReview}
+                setField={(field) => setReview({...review, ...field})}
                 updateRating={updateRating}
-                clickable="true"
             />
             <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />
         </div>

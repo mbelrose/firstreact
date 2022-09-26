@@ -1,7 +1,7 @@
 //takes state hooks for a review and a submission hook and prints the form, for update and add
 import React from 'react';
 
-export default function ReviewForm ({review, setReview, submitAction}) { 
+export default function ReviewForm ({review, setField, submitAction}) { 
     
     return (
         <form onSubmit={submitAction}>
@@ -13,7 +13,7 @@ export default function ReviewForm ({review, setReview, submitAction}) {
                     type="text" 
                     required
                     value={review.name}
-                    onChange={(e) => setReview({...review, name: e.target.value})}
+                    onChange={(e) => setField({name: e.target.value})}
                  />
             </label>
             <br/><input type="submit" />

@@ -42,9 +42,8 @@ export default function ReviewDetail() {
                 <div>name: {review.name}</div>
                 <StarRating 
                     review={review} 
-                    setReview={setReview}
+                    setField={() => {}}
                     updateRating={()=>{}}
-                    clickable="false"
                 />
                 <br />
                 <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;

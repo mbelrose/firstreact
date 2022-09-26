@@ -4,7 +4,7 @@
 import React, {useEffect, useState} from 'react';
 import { FaStar } from 'react-icons/fa';
 
-export default function StarRating ({review, setReview, updateRating, clickable}) {
+export default function StarRating ({review, setField, updateRating}) {
 
     const STAR_LIMIT = 5;
     const [starSet, setStarSet] = useState([]);
@@ -12,20 +12,14 @@ export default function StarRating ({review, setReview, updateRating, clickable}
     useEffect (()=> {
         
         let iSet = [];
-        let starClick;
-        if (clickable==='true') {
-            starClick = (newRating) => {
-                setReview({...review, rating: newRating});
-                updateRating(newRating);
-            }
-        } else {
-            starClick = (x) => { }
-        }
         for (let i=1; i<=STAR_LIMIT; i++)  {
             iSet.push(
                 <FaStar key={i}
                 color={i<=review.rating?'red':'grey'} 
-                onClick={e=>starClick(i)}
+                onClick={e=> {
+                    setField({rating: i});
+                    updateRating(i);
+                }}
             />);
         }
         setStarSet(iSet);
