@@ -5,6 +5,7 @@ import StatusMessage from '../common/StatusMessage';
 import PaginationLinks from "../common/PaginationLinks";
 
 
+
 export default function ReviewList () { 
 
     const [reviews, setReviews] = useState([]);
@@ -20,6 +21,12 @@ export default function ReviewList () {
         parseInt(searchParams.get('page'))
         || 1
     );
+
+    const [update, setUpdate] = useState(0);
+    const forceUpdate = () => {
+      setUpdate(update + 1);
+    }
+  
 
     useEffect(() => { 
 
@@ -45,7 +52,7 @@ export default function ReviewList () {
         }).catch((err) => { 
             setStatus({ type: 'ERROR', errorMessage: err.message });
         });
-    },[page]);
+    },[page, update]);
 
     return (
         <div>
@@ -54,7 +61,7 @@ export default function ReviewList () {
                     <Link to={'/reviews/'+i._id}>
                         {i.name}
                     </Link>&nbsp;
-                    <DeleteButton id={i._id} setStatus={setStatus} />
+                    <DeleteButton id={i._id} setStatus={setStatus} forceUpdate={forceUpdate} />
                 </li> )}
             </ul>
             <PaginationLinks 

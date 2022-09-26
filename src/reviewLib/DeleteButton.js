@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import deleteReviewFetch from './deleteReviewFetch';
 
-export default function DeleteButton ({id, setStatus}) {
+export default function DeleteButton ({id, setStatus, forceUpdate}) {
 
   const [showPopup, setShowPopup] = useState(false);
   const [popup, setPopup] = useState('');
@@ -9,7 +9,7 @@ export default function DeleteButton ({id, setStatus}) {
   const deleteAction = () => {
     deleteReviewFetch(id, setStatus);
     setShowPopup(false);
-    e.target.parentNode.parentNode.style.visibility="hidden";
+    forceUpdate();
   }
 
   useEffect(() => {
