@@ -6,9 +6,10 @@ export default function DeleteButton ({id, setStatus}) {
   const [showPopup, setShowPopup] = useState(false);
   const [popup, setPopup] = useState('');
 
-  const deleteAction = () => {
+  const deleteAction = (e) => {
     deleteReviewFetch(id, setStatus);
     setShowPopup(false);
+    e.target.parentNode.parentNode.style.visibility="hidden";
   }
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function DeleteButton ({id, setStatus}) {
       setPopup(
         <div>
         Are you sure you wish to delete?<br/>
-          <div onClick={e => deleteAction()}>Yes</div>
+          <div onClick={e => deleteAction(e)}>Yes</div>
           <div onClick={e => setShowPopup(false)}>No</div>
         </div>
       );
