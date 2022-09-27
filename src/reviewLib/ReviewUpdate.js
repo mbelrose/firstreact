@@ -6,7 +6,7 @@ import StatusMessage from '../common/StatusMessage';
 
 export default function ReviewUpdate () {
 
-    const [review, setReview] = useState({rating: 1});
+    const [review, setReview] = useState({});
 
     const [status, setStatus] = useState({ type: 'IDLE' });
     const statusClear = useRef(null);
@@ -51,7 +51,6 @@ export default function ReviewUpdate () {
 
     useEffect(() => {
         setStatus({ type: 'LOADING' });
-        setReview({rating: 1});
 
         fetch('/controller/reviews/' + id)
         .then(response => response.json())

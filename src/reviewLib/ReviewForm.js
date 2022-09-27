@@ -15,7 +15,7 @@ export default function ReviewForm ({review, setField, submitAction}) {
                     placeholder="Name" 
                     type="text" 
                     required
-                    value={review.name}
+                    value={review.name || ''}
                     {...fieldProps}
                  />
             </label>

@@ -6,7 +6,7 @@ import StatusMessage from '../common/StatusMessage';
 
 export default function ReviewInsert () {
 
-    const [review, setReview] = useState({rating: 1});
+    const [review, setReview] = useState({});
 
     const navigate = useNavigate();
 
@@ -49,7 +49,6 @@ export default function ReviewInsert () {
     useEffect(() => {
 
         setStatus({ type: 'IDLE' });
-        setReview({rating: 1});
 
     }, []);
 
