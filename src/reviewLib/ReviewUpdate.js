@@ -40,6 +40,12 @@ export default function ReviewUpdate () {
 
     }
 
+    const setField = (field) => {
+        setReview( review => {
+            return ({...review, ...field});
+        })
+    }
+
     const updateRating = (rating) => {
         //save rating on every star click
         if (rating !== undefined ) {
@@ -73,14 +79,14 @@ export default function ReviewUpdate () {
         <div>
             <ReviewForm
                 review={review}
-                setField={(field) => setReview({...review, ...field})}
+                setField={setField}
                 submitAction={(event)=> {
                     event.preventDefault();
                     updateReview(review); }}
             />
             <StarRating
                 review={review}
-                setField={(field) => setReview({...review, ...field})}
+                setField={setField}
                 updateRating={updateRating}
             />
             <StatusMessage status={status} setStatus={setStatus} statusClear={statusClear} />

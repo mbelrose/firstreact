@@ -46,6 +46,12 @@ export default function ReviewInsert () {
 
     }
 
+    const setField = (field) => {
+        setReview( review => {
+            return ({...review, ...field});
+        })
+    }
+
     useEffect(() => {
 
         setStatus({ type: 'IDLE' });
@@ -67,7 +73,7 @@ export default function ReviewInsert () {
                 />
                 <StarRating
                     review={review}
-                    setField={(field) => setReview({...review, ...field})}
+                    setField={setField}
                     updateRating={e=>e}
                 />
                 <StatusMessage 
