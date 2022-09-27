@@ -15,7 +15,7 @@ export default function StarRating ({review, setField, updateRating}) {
         for (let i=1; i<=STAR_LIMIT; i++)  {
             iSet.push(
                 <FaStar key={i}
-                color={i<=review.rating?'red':'grey'} 
+                color={i<=(review.rating||1)?'red':'grey'} 
                 onClick={e=> {
                     setField({rating: i});
                     updateRating(i);
