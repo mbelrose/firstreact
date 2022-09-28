@@ -19,35 +19,42 @@ export default function ReviewDetail() {
             .then((response) => {
 
                 return response.json();
+
             }).then((reviewFound) => {
 
-                setReview(reviewFound);
-                setStatus({ type: 'IDLE' });
                 if (reviewFound._errorMessage !== undefined) {
                     throw new Error(reviewFound._errorMessage);
                 }
+                setReview(reviewFound);
+                setStatus({ type: 'SUCCESS' });
+
             }).catch((err) => {
 
+                if (err.message.match(/JSON.parse/)) {
+                    err.message = 'No response.';
+                }
                 setStatus({ type: 'ERROR', errorMessage: err.message});
             });
     }, [])
 
-    if (status.type == 'IDLE') {
-        setText (
-        <React.Fragment>
-            <div>name: {review.name}</div>
-            <StarRating 
-                review={review} 
-                setField={() => {}}
-                updateRating={()=>{}}
-            />
-            <br />
-            <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;
-            <Link to={'/reviews/delete/' + id}>DELETE</Link>
-        </React.Fragment>
-        );
-
-    }
+    useEffect( ()=> {
+        if (status.type === 'SUCCESS') {
+            setText(
+            <React.Fragment>
+                <div>name: {review.name}</div>
+                <StarRating 
+                    review={review} 
+                    setField={() => {}}
+                    updateRating={()=>{}}
+                />
+                <br />
+                <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;
+                <Link to={'/reviews/delete/' + id}>DELETE</Link>
+            </React.Fragment>
+            );
+        }
+    }, [review]);
+    
 
     return (
         <div>
