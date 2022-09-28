@@ -1,7 +1,8 @@
 // given a userid, checks validity and displays rating details
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import StarRating from './StarRating';
+import StatusMessage from '../common/StatusMessage';
 
 export default function ReviewDetail() {
 
@@ -9,48 +10,52 @@ export default function ReviewDetail() {
 
     const [review, setReview] = useState({});
     
-    const [errorMessage, setErrorMessage] = useState('_NONE');
-    const [loading, setLoading] = useState(true);
+    const [status, setStatus] = useState({ type: 'LOADING' });
+    const statusClear = useRef(null);
+    const [text, setText] = useState('');
 
     useEffect(() => {
-        fetch('/controller/reviews/' + id)
+        fetch('/controller/rxeviews/' + id)
             .then((response) => {
 
                 return response.json();
             }).then((reviewFound) => {
+
                 setReview(reviewFound);
-                setLoading(false);
+                setStatus({ type: 'IDLE' });
                 if (reviewFound._errorMessage !== undefined) {
                     throw new Error(reviewFound._errorMessage);
                 }
             }).catch((err) => {
-                setErrorMessage(err.message);
+
+                setStatus({ type: 'ERROR', errorMessage: err.message});
             });
     }, [])
 
-    if (errorMessage !== '_NONE') {
-        return (
-            <div>{errorMessage}</div>
+    if (status.type == 'IDLE') {
+        setText (
+        <React.Fragment>
+            <div>name: {review.name}</div>
+            <StarRating 
+                review={review} 
+                setField={() => {}}
+                updateRating={()=>{}}
+            />
+            <br />
+            <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;
+            <Link to={'/reviews/delete/' + id}>DELETE</Link>
+        </React.Fragment>
         );
-    } else if (loading) {
-        return (
-            <div>LOADING...</div>
-        );
-    } else {
-        return (
-            <div>
-                <div>name: {review.name}</div>
-                <StarRating 
-                    review={review} 
-                    setField={() => {}}
-                    updateRating={()=>{}}
-                />
-                <br />
-                <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;
-                <Link to={'/reviews/delete/' + id}>DELETE</Link>
-            </div>
 
-        );
     }
 
+    return (
+        <div>
+            {text}
+            <StatusMessage 
+                status={status} setStatus={setStatus} 
+                statusClear={statusClear} 
+            />
+        </div>
+    );
 }
