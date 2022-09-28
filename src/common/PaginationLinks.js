@@ -52,10 +52,10 @@ export default function PaginationLinks ({count, page : oldPage, setPage, pageSi
         <form action="#" onSubmit={ 
                     e=>{e.preventDefault;
                     setPage(
-                        e.target.querySelector('[name=userPage]').value
+                        e.target.querySelector('[name=page]').value
                     );}}>
             <input 
-                name="userPage"
+                name="page"
                 type="text" 
                 placeholder={page} 
                 size="2" 
