@@ -15,7 +15,7 @@ export default function ReviewDetail() {
     const [text, setText] = useState('');
 
     useEffect(() => {
-        fetch('/controller/rxeviews/' + id)
+        fetch('/controller/reviews/' + id)
             .then((response) => {
 
                 return response.json();
