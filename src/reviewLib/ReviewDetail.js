@@ -30,7 +30,7 @@ export default function ReviewDetail() {
 
             }).catch((err) => {
 
-                if (err.message.match(/JSON.parse/)) {
+                if (err.message.match(/^JSON.parse/)) {
                     err.message = 'No response.';
                 }
                 setStatus({ type: 'ERROR', errorMessage: err.message});

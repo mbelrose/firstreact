@@ -32,25 +32,25 @@ export default function ReviewList () {
 
         setStatus({ type: 'LOADING' });
         fetch('/controller/reviews/?page=' + page)
-        .then((res) => {
-            
-            res.json().then( (msg) => {
+        .then( (res) => {
+            return res.json();
+        }).then((msg) => {
 
-                if (msg._errorMessage) {
-                    setStatus({ type: 'ERROR', errorMessage: msg._errorMessage });
-                } else {
-                    setReviews(msg.reviews);
-                    setCount(msg.count);
-                    setPageSize(msg.PAGE_SIZE);
-                    setStatus({ type: 'IDLE' });
-                }
-
-            }).catch( (err) => {
-                setStatus({ type: 'ERROR', errorMessage: 'No response.' });
-            });
+            if (msg._errorMessage  !== undefined) {
+                throw new Error(msg._errorMessage);
+            }
+            setReviews(msg.reviews);
+            setCount(msg.count);
+            setPageSize(msg.PAGE_SIZE);
+            setStatus({ type: 'IDLE' });
 
         }).catch((err) => { 
+
+            if (err.message.match(/^JSON/)) {
+                err.message = 'No response.';
+            }
             setStatus({ type: 'ERROR', errorMessage: err.message });
+
         });
     },[page, update]);
 

@@ -69,6 +69,10 @@ export default function ReviewUpdate () {
             }
 
         }).catch((err) => {
+            
+            if (err.message.match(/^JSON.parse/)) {
+                err.message = 'No response.';
+            }
             setStatus({ type: 'ERROR', errorMessage: err.message });
         });
 
