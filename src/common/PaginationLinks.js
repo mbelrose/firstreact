@@ -28,6 +28,9 @@ export default function PaginationLinks ({count, page : oldPage, setPage, pageSi
             </Link>
         );
     }
+
+
+
     const nextPage = (page < pages) ? page+1 : 0;
     let nextLink = '';
     if ( nextPage > 0 ) {
@@ -43,10 +46,29 @@ export default function PaginationLinks ({count, page : oldPage, setPage, pageSi
         );
     }
 
+    
+    let userPage = (
+        <React.Fragment>
+        <form action="#" onSubmit={ 
+                    e=>{e.preventDefault;
+                    setPage(
+                        e.target.querySelector('[name=userPage]').value;
+                    )}}>
+            <input 
+                name="userPage"
+                type="text" 
+                placeholder={page} 
+                size="2" 
+            />
+        </form>
+        </React.Fragment>
+    )
+
     let text = (
         <React.Fragment>
             {prevLink}
-            &nbsp; Page { page } of { pages } &nbsp;
+            &nbsp; Page { userPage } of { pages } &nbsp;
+            
             {nextLink}            
         </React.Fragment>
     );
