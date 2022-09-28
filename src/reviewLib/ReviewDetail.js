@@ -53,7 +53,7 @@ export default function ReviewDetail() {
             </React.Fragment>
             );
         }
-    }, [review]);
+    }, [review.name]);
     
 
     return (
