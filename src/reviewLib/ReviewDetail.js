@@ -26,7 +26,7 @@ export default function ReviewDetail() {
                     throw new Error(reviewFound._errorMessage);
                 }
                 setReview(reviewFound);
-                setStatus({ type: 'SUCCESS' });
+                setStatus({ type: 'IDLE' });
 
             }).catch((err) => {
 
@@ -38,7 +38,7 @@ export default function ReviewDetail() {
     }, [])
 
     useEffect( ()=> {
-        if (status.type === 'SUCCESS') {
+        if (status.type === 'IDLE') {
             setText(
             <React.Fragment>
                 <div>name: {review.name}</div>
