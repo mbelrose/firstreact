@@ -8,12 +8,10 @@ export default function ReviewUpdate () {
 
     const [review, setReview] = useState({});
 
-    const [status, setStatus] = useState({ type: 'IDLE' });
+    const [status, setStatus] = useState({ type: 'LOADING' });
     const statusClear = useRef(null);
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
-
-
 
     function updateReview (reviewPosting) {
 
@@ -56,7 +54,6 @@ export default function ReviewUpdate () {
     }
 
     useEffect(() => {
-        setStatus({ type: 'LOADING' });
 
         fetch('/controller/reviews/' + id)
         .then(response => response.json())
