@@ -9,16 +9,19 @@ import PaginationLinks from "../common/PaginationLinks";
 export default function ReviewList () { 
 
     const [reviews, setReviews] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [params, setParams] = useSearchParams();
 
     const [status, setStatus] = useState({ type: 'IDLE' });
     const statusClear = useRef(null);
 
+    const [search, setSearch] = useState(
+        params.get('search') || ''  
+    );
 
     const [pageSize, setPageSize] = useState(3);
     const [count, setCount] = useState(1);
     const [page, setPage] = useState(
-        parseInt(searchParams.get('page'))
+        parseInt(params.get('page'))
         || 1
     );
 
@@ -30,8 +33,15 @@ export default function ReviewList () {
 
     useEffect(() => { 
 
+        let searchText = '';
+        if (search !== '' && search !== undefined) {
+            searchText = '&search='
+                + encodeURIComponent(
+                String(search)
+                .substring(0,255));
+        }
         setStatus({ type: 'LOADING' });
-        fetch('/controller/reviews/?page=' + page)
+        fetch('/controller/reviews/?page=' + page + searchText)
         .then( (res) => {
             return res.json();
         }).then((msg) => {
@@ -52,10 +62,29 @@ export default function ReviewList () {
             setStatus({ type: 'ERROR', errorMessage: err.message });
 
         });
-    },[page, update]);
+    },[page, search, update]);
 
     return (
         <div>
+        <div>
+            <form 
+                action="#" 
+                method="get" 
+                onSubmit={e=>{
+                    e.preventDefault();
+                    setSearch(e.target.querySelector('[name=search]').value)
+            }}>
+                <label>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        placeholder={params.get('search')
+                        || 'Search for...'}
+                    />
+                </label>
+                <input type="submit" value="Search"/>
+            </form>
+         </div>
             <ul>
                 { reviews.map( (i,j) => <li key={j}>
                     <Link to={'/reviews/'+i._id}>

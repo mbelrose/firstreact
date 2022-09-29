@@ -42,7 +42,21 @@ function getAll (req, res, next) {
         skip = (page - 1 ) * PAGE_SIZE;
     } 
 
-    const query = {};
+    let search = req.query.search;
+    if (search !== undefined) {
+        search = search.substring(0,255);
+    } else {
+        search = '';
+    }
+    
+
+    const query = (search !== '')?
+        {
+            name: {
+                $regex: search
+            }
+        }
+        :{};
 
     mongoose.connect(ConnectionString)
     .then(( connection ) => {
