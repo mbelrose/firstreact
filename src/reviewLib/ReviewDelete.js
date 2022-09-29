@@ -10,15 +10,6 @@ export default function ReviewDelete () {
 
     const id = useParams().id.match(/^\w{1,255}$/).shift();
 
-
-    useEffect(() => {
-
-        setStatus({ type: 'IDLE' });
-
-    }, []);
-
-
-
     if (status.type === 'IDLE') {
         return (
             <div>
