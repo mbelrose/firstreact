@@ -22,10 +22,20 @@ export default function App () {
             <h2>Reviews System</h2>
           </div>
 
-          <div>
-            MENU:
-            <Link to="/reviews/">LIST</Link>&nbsp;
-            <Link to="/reviews/insert/">INSERT</Link>
+          <div className="App-sidebar">
+            <div className="menu">
+              MENU <br />
+              <div className="menu-body">
+                <ul>
+                  <li key="1">
+                    <Link to="/reviews/">LIST</Link>
+                  </li>
+                  <li key="2">
+                    <Link to="/reviews/insert/">INSERT</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <Routes>

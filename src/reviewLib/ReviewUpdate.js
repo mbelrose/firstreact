@@ -77,7 +77,7 @@ export default function ReviewUpdate () {
 
 
     return (
-        <div>
+        <div className="App-main">
             <ReviewForm
                 review={review}
                 setField={setField}

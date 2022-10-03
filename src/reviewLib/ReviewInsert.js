@@ -63,7 +63,7 @@ export default function ReviewInsert () {
         return (<div>redirecting</div>);
     } else {
         return (
-            <div>
+            <div className="App-main">
                 <ReviewForm
                     review={review}
                     setField={(field) => setReview({...review, ...field})}

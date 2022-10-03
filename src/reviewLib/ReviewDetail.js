@@ -57,7 +57,7 @@ export default function ReviewDetail() {
     
 
     return (
-        <div>
+        <div className="App-main">
             {text}
             <StatusMessage 
                 status={status} setStatus={setStatus} 

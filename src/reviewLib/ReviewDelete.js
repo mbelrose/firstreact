@@ -12,7 +12,7 @@ export default function ReviewDelete () {
 
     if (status.type === 'IDLE') {
         return (
-            <div>
+            <div className="App-main">
                 Are you sure you wish to delete?<br/>
                 <div onClick={e => deleteReviewFetch(id, setStatus)}>Yes</div>
                 <div onClick={e => window.history.back()}>No</div>
@@ -20,7 +20,7 @@ export default function ReviewDelete () {
         );
     } else {
         return (
-            <div>
+            <div className="App-main">
                 <div>
                 <Link to="/reviews/">&lt;&lt;&lt;Go back to list.</Link>
                 </div>
