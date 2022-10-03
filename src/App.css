@@ -34,18 +34,18 @@
 
 .App-main {
   grid-area: main;
-  background-color: aqua;
 }
 
 .menu {
 
 }
 
-.menu:hover .menu-body{
-  /* visibility: visible; */
-  /* for popup menu */
+/* for popup menu */
+/* .menu:hover .menu-body{
+  visibility: visible;
+  
 }
 
 .menu-body {
-  /* visibility: hidden; */
-}
+  visibility: hidden;
+} */
