@@ -21,6 +21,10 @@
   text-align: left;
 }
 
+.App-sidebar li {
+  list-style-type: none;
+}
+
 .App-sidebar a,.App-main a {
   text-decoration: none;
   color:black;
@@ -33,7 +37,30 @@
 
 
 .App-main {
+  margin-left: auto;
+  margin-right: auto;
   grid-area: main;
+}
+
+.review-list-items {
+  width: 50%;
+  list-style-type: none;
+
+
+}
+
+.review-list-items * {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end ;
+  overflow: hidden;
+
+  flex-basis: 75%;
+}
+
+.review-list-items .delete-button-main {
+  flex-basis: 20%;
 }
 
 .menu {
