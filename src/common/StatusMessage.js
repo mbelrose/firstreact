@@ -23,5 +23,5 @@ export default function StatusMessage({status, setStatus, statusClear}) {
             setStatus({ type: 'IDLE' });
         }, STATUS_TIMEOUT);
     }
-    return (<div>{message}</div>);
+    return (<div className="status-message">{message}</div>);
 }

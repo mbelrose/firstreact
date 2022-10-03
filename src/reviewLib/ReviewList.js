@@ -66,7 +66,7 @@ export default function ReviewList () {
 
     return (
         <div className="App-main">
-            <form 
+            <form className="review-list-form"
                 action="#" 
                 method="get" 
                 onSubmit={e=>{
@@ -83,7 +83,7 @@ export default function ReviewList () {
                 </label>
                 <input type="submit" value="Search"/>
             </form>
-            <ul>
+            <ul className="review-list-items">
                 { reviews.map( (i,j) => <li key={j}>
                     <Link to={'/reviews/'+i._id}>
                         {i.name}
