@@ -8,10 +8,27 @@
 
 .App-header {
   grid-area: header;
+  display: grid;
+  grid:
+    [header-text] "header-text" 5fr
+    [spacer] "spacer" 1fr
+    /1fr;
   background-color: #222;
+  margin: 0%;
+  padding: 0%;
+}
+
+.App-header h2 {
+  grid-area: header-text;
   color: white;
-  font-size: large;
+  font-size: largest;
   overflow: scroll;
+
+}
+
+.App-header .spacer {
+  grid-area: spacer;
+  background-color: white;
 }
 
 .App-sidebar {

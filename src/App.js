@@ -20,6 +20,7 @@ export default function App () {
           <div className="App-header">
             
             <h2>Reviews System</h2>
+            <div class="spacer"></div>
           </div>
 
           <div className="App-sidebar">
