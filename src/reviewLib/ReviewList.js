@@ -35,16 +35,15 @@ export default function ReviewList () {
         e.preventDefault();
         const searchBox = document
             .querySelector('.review-list-form')
-            .querySelector('[name=search]')
-            ;
+            .querySelector('[name=search]');
 
         switch (action) {
 
             case 'CLEAR' : 
                 setSearch('');
                 searchBox.value = '';
-                
                 break;
+
             case 'SEARCH': 
                 setSearch(searchBox.value);
                 setPage(1);
@@ -102,8 +101,8 @@ export default function ReviewList () {
                         || 'Search for...'}
                     />
                 </label>&nbsp;
-                <span onClick={clickSearch('CLEAR')}>Clear</span>&nbsp;
-                <span onClick={clickSearch('SEARCH')}>Search</span>
+                <a href="#" onClick={clickSearch('CLEAR')}>Clear</a>&nbsp;
+                <a href="#" onClick={clickSearch('SEARCH')}>Search</a>
             </form>
             <ul className="review-list-items">
                 { reviews.map( (i,j) => <li key={j}>
