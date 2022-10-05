@@ -14,8 +14,9 @@ export default function ReviewDelete () {
         return (
             <div className="App-main">
                 Are you sure you wish to delete?<br/>
-                <div onClick={e => deleteReviewFetch(id, setStatus)}>Yes</div>
-                <div onClick={e => window.history.back()}>No</div>
+                <a href="#"  onClick={e => deleteReviewFetch(id, setStatus)}>Yes</a>
+                &nbsp;
+                <a href="#"  onClick={e => window.history.back()}>No</a>
             </div>
         );
     } else {

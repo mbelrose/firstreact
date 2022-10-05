@@ -21,18 +21,20 @@ export default function DeleteButton ({id, setStatus, forceUpdate}) {
     if (showPopup) {
       setPopup(
         <div className="delete-button-popup">
-        Are you sure you wish to delete?<br/>
-          <div onClick={deleteAction}>Yes</div>
-          <div onClick={e => setShowPopup(false)}>No</div>
+        Are you sure you wish to delete?
+          &nbsp;
+          <a href="#" onClick={deleteAction}>Yes</a>
+          &nbsp;
+          <a href="#" onClick={e => setShowPopup(false)}>No</a>
         </div>
       );
     } else {
       setPopup(
-        <span className="delete-button-main" 
+        <a href="#" className="delete-button-main" 
           onClick={e => setShowPopup(true)}
         >
           DELETE
-        </span>
+        </a>
       );
     }
     
