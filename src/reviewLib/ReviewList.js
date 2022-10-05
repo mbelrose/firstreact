@@ -29,6 +29,28 @@ export default function ReviewList () {
     const forceUpdate = () => {
       setUpdate(update + 1);
     }
+
+    const clickSearch = (action) => (e) => {
+
+        e.preventDefault();
+        const searchBox = document
+            .querySelector('.review-list-form')
+            .querySelector('[name=search]')
+            ;
+
+        switch (action) {
+
+            case 'CLEAR' : 
+                setSearch('');
+                searchBox.value = '';
+                
+                break;
+            case 'SEARCH': 
+                setSearch(searchBox.value);
+                setPage(1);
+
+        }
+    }
   
 
     useEffect(() => { 
@@ -66,22 +88,22 @@ export default function ReviewList () {
 
     return (
         <div className="App-main">
-            <form className="review-list-form"
+            <form 
+                className="review-list-form"
+                id="searchForm"
                 action="#" 
                 method="get" 
-                onSubmit={e=>{
-                    e.preventDefault();
-                    setSearch(e.target.querySelector('[name=search]').value)
-            }}>
+                onSubmit={clickSearch('SEARCH')}>
                 <label>
                     <input 
-                        type="text" 
+                        type="search" 
                         name="search" 
-                        placeholder={params.get('search')
+                        placeholder={search
                         || 'Search for...'}
                     />
-                </label>
-                <input type="submit" value="Search"/>
+                </label>&nbsp;
+                <span onClick={clickSearch('CLEAR')}>Clear</span>&nbsp;
+                <span onClick={clickSearch('SEARCH')}>Search</span>
             </form>
             <ul className="review-list-items">
                 { reviews.map( (i,j) => <li key={j}>
