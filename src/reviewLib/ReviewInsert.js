@@ -67,9 +67,8 @@ export default function ReviewInsert () {
                 <ReviewForm
                     review={review}
                     setField={(field) => setReview({...review, ...field})}
-                    submitAction={(event)=> {
-                        event.preventDefault();
-                        insertReview(review); }}
+                    submitText = 'INSERT'
+                    submitAction={()=> insertReview(review)}
                 />
                 <StarRating
                     review={review}

@@ -81,9 +81,8 @@ export default function ReviewUpdate () {
             <ReviewForm
                 review={review}
                 setField={setField}
-                submitAction={(event)=> {
-                    event.preventDefault();
-                    updateReview(review); }}
+                submitText = 'UPDATE'
+                submitAction={() => updateReview(review)}
             />
             <StarRating
                 review={review}
