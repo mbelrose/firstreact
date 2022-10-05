@@ -48,8 +48,8 @@ export default function ReviewDetail() {
                     updateRating={()=>{}}
                 />
                 <br />
-                <Link to={'/reviews/update/' + id}>UPDATE</Link>&nbsp;
-                <Link to={'/reviews/delete/' + id}>DELETE</Link>
+                <Link to={'/reviews/update/' + id} className="button">UPDATE</Link>&nbsp;
+                <Link to={'/reviews/delete/' + id} className="button">DELETE</Link>
             </React.Fragment>
             );
         }
@@ -57,7 +57,7 @@ export default function ReviewDetail() {
     
 
     return (
-        <div className="App-main">
+        <div className="App-main review-detail">
             {text}
             <StatusMessage 
                 status={status} setStatus={setStatus} 
