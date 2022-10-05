@@ -1,7 +1,8 @@
 // take count, state for page, and pagesize constant
 // make links to next and previous page
 import React from "react";
-import {Link} from 'react-router-dom';
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
+import {Link} from 'react-router-dom'
 
 export default function PaginationLinks ({count, page : oldPage, setPage, pageSize}) {
 
@@ -24,12 +25,10 @@ export default function PaginationLinks ({count, page : oldPage, setPage, pageSi
                     e=>{e.preventDefault;
                     setPage(prevPage)}}
             >
-                &lt;&lt;PREV
+                <FaLongArrowAltLeft /> PREV
             </Link>
         );
     }
-
-
 
     const nextPage = (page < pages) ? page+1 : 0;
     let nextLink = '';
@@ -41,38 +40,38 @@ export default function PaginationLinks ({count, page : oldPage, setPage, pageSi
                     e=>{e.preventDefault;
                     setPage(nextPage)}}
             >
-                NEXT&gt;&gt;
+                NEXT <FaLongArrowAltRight />
             </Link>
         );
     }
 
+    const formSubmit = (e) => {
+        e.preventDefault;
+        setPage(
+            parseInt(e.target.querySelector('[name=page]').value)
+            || 1
+        );
+    }
     
-    let userPage = (
+    const userPage = (
         <React.Fragment>
-        <form action="#" onSubmit={ 
-                    e=>{e.preventDefault;
-                    setPage(
-                        parseInt(e.target.querySelector('[name=page]').value)
-                        || 1
-                    );}}>
             <input 
                 name="page"
                 type="text" 
                 placeholder={page} 
                 size="2" 
             />
-        </form>
         </React.Fragment>
     )
 
-    let text = (
-        <React.Fragment>
-            {prevLink}
-            &nbsp; Page { userPage } of { pages } &nbsp;
-            
-            {nextLink}            
-        </React.Fragment>
+    return (
+        <div className="pagination-links">
+            <form action="#" onSubmit={formSubmit}>
+                {prevLink}
+                Page {userPage} of {pages}
+                {nextLink}            
+            </form>
+        </div>
     );
 
-    return text;
 }
