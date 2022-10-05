@@ -40,11 +40,16 @@
 
 .App-sidebar li {
   list-style-type: none;
+  
 }
 
-.App-sidebar a,.App-main a {
+.App-sidebar a {
   text-decoration: none;
-  color:black;
+  background-color: royalblue  ;
+  color: white;
+  border-radius: 10%;
+  margin-left:1%;
+  margin-right: 1%;
 }
 
 .App-sidebar a:hover,.App-main a:hover {
@@ -59,7 +64,13 @@
   grid-area: main;
 }
 
-.review-list-form a {
+.App-main a {
+  text-decoration: none;
+  color:black;
+}
+
+
+.review-list-search a {
   background-color: royalblue  ;
   color: white;
   border-radius: 10%;
@@ -142,4 +153,13 @@
   border-radius: 10%;
   margin-left:1%;
   margin-right: 1%;
+}
+
+.review-form a {
+  background-color: royalblue  ;
+  color: white;
+  border-radius: 10%;
+  margin-left:1%;
+  margin-right: 1%;
+
 }

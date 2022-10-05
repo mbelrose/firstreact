@@ -13,7 +13,7 @@ export default function ReviewForm ({review, setField, submitText, submitAction}
     }
 
     return (
-        <form onSubmit={submitAction}>
+        <form onSubmit={submitAction} className="review-form">
             <label>
                 Name: 
                 <input

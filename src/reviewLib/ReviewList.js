@@ -88,7 +88,7 @@ export default function ReviewList () {
     return (
         <div className="App-main">
             <form 
-                className="review-list-form"
+                className="review-list-search"
                 id="searchForm"
                 action="#" 
                 method="get" 
