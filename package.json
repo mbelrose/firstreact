@@ -2,7 +2,6 @@
   "name": "firstreact",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
   "dependencies": {
     "dotenv": "^16.0.2",
     "mongoose": "^6.5.4",
