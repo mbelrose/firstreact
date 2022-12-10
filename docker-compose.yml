@@ -16,9 +16,13 @@ services:
       <<: *database-password
       <<: *app-server-config
       NODE_ENV: production
-      DATABASE_HOST: firstreact-database-1
+      DATABASE_HOST: database
     volumes:
       - ./:/usr/src/app
+    networks:
+      firstreact:
+        aliases:
+          - app
     command: sh -c "node ./controller/Controller"
 
   database:
@@ -28,6 +32,10 @@ services:
       MONGO_INITDB_ROOT_USERNAME: firstreact
     volumes:
       - database:/data/db
+    networks:
+      firstreact:
+        aliases:
+          - database
 
   proxy:
     image: nginx
@@ -38,9 +46,16 @@ services:
       <<: *app-server-config
       PROXY_SERVER_NAME: localhost
       PROXY_SERVER_PORT: 3000
-      APP_SERVER_NAME: firstreact-app-1
+      APP_SERVER_NAME: app
     ports:
       - 3000:3000
+    networks:
+      firstreact:
+        aliases:
+          - proxy
 
 volumes:
   database:
+
+networks:
+  firstreact:
