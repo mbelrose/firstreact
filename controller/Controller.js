@@ -1,4 +1,5 @@
-const port = 3001;
+require('dotenv').config();
+const port = process.env.APP_SERVER_PORT || 8080;
 const express = require('express');
 const app = express();
 const ReviewController = require('./ReviewController');
