@@ -1,12 +1,18 @@
-# DATABASE_PASSWORD in env should probably not be blank
+# DATABASE_PASSWORD environment variable is optional
+# MONGO_INITDB_ROOT_PASSWORD only creates the password for a new db
+# can't change for existing db
+x-database-password: &database-password
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD-password} #for app
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD-password} #for mongo
+
 services:
   app:
     image: node:16
     working_dir: /usr/src/app
     environment:
+      <<: *database-password
       NODE_ENV: production
       DATABASE_HOST: firstreact-database-1
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./:/usr/src/app
     command: sh -c "node ./controller/Controller"
@@ -14,8 +20,8 @@ services:
   database:
     image: mongo
     environment:
+      <<: *database-password
       MONGO_INITDB_ROOT_USERNAME: firstreact
-      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - database:/data/db
 
